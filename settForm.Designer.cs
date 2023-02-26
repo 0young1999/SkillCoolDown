@@ -1,6 +1,6 @@
 ﻿namespace SpecialCampaignSkillCoolDown
 {
-	partial class settting
+	partial class settForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -49,15 +49,15 @@
 			this.label8 = new System.Windows.Forms.Label();
 			this.label9 = new System.Windows.Forms.Label();
 			this.TBSkillName0 = new System.Windows.Forms.TextBox();
-			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.textBox2 = new System.Windows.Forms.TextBox();
-			this.textBox3 = new System.Windows.Forms.TextBox();
-			this.textBox4 = new System.Windows.Forms.TextBox();
-			this.textBox5 = new System.Windows.Forms.TextBox();
-			this.textBox6 = new System.Windows.Forms.TextBox();
-			this.textBox7 = new System.Windows.Forms.TextBox();
-			this.textBox8 = new System.Windows.Forms.TextBox();
-			this.textBox9 = new System.Windows.Forms.TextBox();
+			this.TBSkillName1 = new System.Windows.Forms.TextBox();
+			this.TBSkillName2 = new System.Windows.Forms.TextBox();
+			this.TBSkillName3 = new System.Windows.Forms.TextBox();
+			this.TBSkillName4 = new System.Windows.Forms.TextBox();
+			this.TBSkillName5 = new System.Windows.Forms.TextBox();
+			this.TBSkillName6 = new System.Windows.Forms.TextBox();
+			this.TBSkillName7 = new System.Windows.Forms.TextBox();
+			this.TBSkillName8 = new System.Windows.Forms.TextBox();
+			this.TBSkillName9 = new System.Windows.Forms.TextBox();
 			this.NUDSkillCoolDown0 = new System.Windows.Forms.NumericUpDown();
 			this.label10 = new System.Windows.Forms.Label();
 			this.label11 = new System.Windows.Forms.Label();
@@ -136,6 +136,7 @@
 			this.BTBind0.TabIndex = 0;
 			this.BTBind0.Text = "BINDKEY";
 			this.BTBind0.UseVisualStyleBackColor = true;
+			this.BTBind0.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BTBind0_KeyUp);
 			// 
 			// BTBind1
 			// 
@@ -145,6 +146,7 @@
 			this.BTBind1.TabIndex = 1;
 			this.BTBind1.Text = "BINDKEY";
 			this.BTBind1.UseVisualStyleBackColor = true;
+			this.BTBind1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BTBind1_KeyUp);
 			// 
 			// BTBind2
 			// 
@@ -154,6 +156,7 @@
 			this.BTBind2.TabIndex = 2;
 			this.BTBind2.Text = "BINDKEY";
 			this.BTBind2.UseVisualStyleBackColor = true;
+			this.BTBind2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BTBind2_KeyUp);
 			// 
 			// BTBind3
 			// 
@@ -163,6 +166,7 @@
 			this.BTBind3.TabIndex = 3;
 			this.BTBind3.Text = "BINDKEY";
 			this.BTBind3.UseVisualStyleBackColor = true;
+			this.BTBind3.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BTBind3_KeyUp);
 			// 
 			// BTBind4
 			// 
@@ -172,6 +176,7 @@
 			this.BTBind4.TabIndex = 4;
 			this.BTBind4.Text = "BINDKEY";
 			this.BTBind4.UseVisualStyleBackColor = true;
+			this.BTBind4.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BTBind4_KeyUp);
 			// 
 			// BTBind5
 			// 
@@ -181,6 +186,7 @@
 			this.BTBind5.TabIndex = 5;
 			this.BTBind5.Text = "BINDKEY";
 			this.BTBind5.UseVisualStyleBackColor = true;
+			this.BTBind5.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BTBind5_KeyUp);
 			// 
 			// BTBind6
 			// 
@@ -190,6 +196,7 @@
 			this.BTBind6.TabIndex = 6;
 			this.BTBind6.Text = "BINDKEY";
 			this.BTBind6.UseVisualStyleBackColor = true;
+			this.BTBind6.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BTBind6_KeyUp);
 			// 
 			// BTBind7
 			// 
@@ -199,6 +206,7 @@
 			this.BTBind7.TabIndex = 7;
 			this.BTBind7.Text = "BINDKEY";
 			this.BTBind7.UseVisualStyleBackColor = true;
+			this.BTBind7.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BTBind7_KeyUp);
 			// 
 			// BTBind8
 			// 
@@ -208,6 +216,7 @@
 			this.BTBind8.TabIndex = 8;
 			this.BTBind8.Text = "BINDKEY";
 			this.BTBind8.UseVisualStyleBackColor = true;
+			this.BTBind8.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BTBind8_KeyUp);
 			// 
 			// BTBind9
 			// 
@@ -217,6 +226,7 @@
 			this.BTBind9.TabIndex = 9;
 			this.BTBind9.Text = "BINDKEY";
 			this.BTBind9.UseVisualStyleBackColor = true;
+			this.BTBind9.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BTBind9_KeyUp);
 			// 
 			// label0
 			// 
@@ -326,68 +336,68 @@
 			this.TBSkillName0.TabIndex = 20;
 			this.TBSkillName0.Text = "플라즈마 버스터";
 			// 
-			// textBox1
+			// TBSkillName1
 			// 
-			this.textBox1.Location = new System.Drawing.Point(221, 56);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(156, 21);
-			this.textBox1.TabIndex = 21;
+			this.TBSkillName1.Location = new System.Drawing.Point(221, 56);
+			this.TBSkillName1.Name = "TBSkillName1";
+			this.TBSkillName1.Size = new System.Drawing.Size(156, 21);
+			this.TBSkillName1.TabIndex = 21;
 			// 
-			// textBox2
+			// TBSkillName2
 			// 
-			this.textBox2.Location = new System.Drawing.Point(221, 85);
-			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(156, 21);
-			this.textBox2.TabIndex = 22;
+			this.TBSkillName2.Location = new System.Drawing.Point(221, 85);
+			this.TBSkillName2.Name = "TBSkillName2";
+			this.TBSkillName2.Size = new System.Drawing.Size(156, 21);
+			this.TBSkillName2.TabIndex = 22;
 			// 
-			// textBox3
+			// TBSkillName3
 			// 
-			this.textBox3.Location = new System.Drawing.Point(221, 114);
-			this.textBox3.Name = "textBox3";
-			this.textBox3.Size = new System.Drawing.Size(156, 21);
-			this.textBox3.TabIndex = 23;
+			this.TBSkillName3.Location = new System.Drawing.Point(221, 114);
+			this.TBSkillName3.Name = "TBSkillName3";
+			this.TBSkillName3.Size = new System.Drawing.Size(156, 21);
+			this.TBSkillName3.TabIndex = 23;
 			// 
-			// textBox4
+			// TBSkillName4
 			// 
-			this.textBox4.Location = new System.Drawing.Point(221, 143);
-			this.textBox4.Name = "textBox4";
-			this.textBox4.Size = new System.Drawing.Size(156, 21);
-			this.textBox4.TabIndex = 24;
+			this.TBSkillName4.Location = new System.Drawing.Point(221, 143);
+			this.TBSkillName4.Name = "TBSkillName4";
+			this.TBSkillName4.Size = new System.Drawing.Size(156, 21);
+			this.TBSkillName4.TabIndex = 24;
 			// 
-			// textBox5
+			// TBSkillName5
 			// 
-			this.textBox5.Location = new System.Drawing.Point(221, 172);
-			this.textBox5.Name = "textBox5";
-			this.textBox5.Size = new System.Drawing.Size(156, 21);
-			this.textBox5.TabIndex = 25;
+			this.TBSkillName5.Location = new System.Drawing.Point(221, 172);
+			this.TBSkillName5.Name = "TBSkillName5";
+			this.TBSkillName5.Size = new System.Drawing.Size(156, 21);
+			this.TBSkillName5.TabIndex = 25;
 			// 
-			// textBox6
+			// TBSkillName6
 			// 
-			this.textBox6.Location = new System.Drawing.Point(221, 201);
-			this.textBox6.Name = "textBox6";
-			this.textBox6.Size = new System.Drawing.Size(156, 21);
-			this.textBox6.TabIndex = 26;
+			this.TBSkillName6.Location = new System.Drawing.Point(221, 201);
+			this.TBSkillName6.Name = "TBSkillName6";
+			this.TBSkillName6.Size = new System.Drawing.Size(156, 21);
+			this.TBSkillName6.TabIndex = 26;
 			// 
-			// textBox7
+			// TBSkillName7
 			// 
-			this.textBox7.Location = new System.Drawing.Point(221, 230);
-			this.textBox7.Name = "textBox7";
-			this.textBox7.Size = new System.Drawing.Size(156, 21);
-			this.textBox7.TabIndex = 27;
+			this.TBSkillName7.Location = new System.Drawing.Point(221, 230);
+			this.TBSkillName7.Name = "TBSkillName7";
+			this.TBSkillName7.Size = new System.Drawing.Size(156, 21);
+			this.TBSkillName7.TabIndex = 27;
 			// 
-			// textBox8
+			// TBSkillName8
 			// 
-			this.textBox8.Location = new System.Drawing.Point(221, 259);
-			this.textBox8.Name = "textBox8";
-			this.textBox8.Size = new System.Drawing.Size(156, 21);
-			this.textBox8.TabIndex = 28;
+			this.TBSkillName8.Location = new System.Drawing.Point(221, 259);
+			this.TBSkillName8.Name = "TBSkillName8";
+			this.TBSkillName8.Size = new System.Drawing.Size(156, 21);
+			this.TBSkillName8.TabIndex = 28;
 			// 
-			// textBox9
+			// TBSkillName9
 			// 
-			this.textBox9.Location = new System.Drawing.Point(221, 288);
-			this.textBox9.Name = "textBox9";
-			this.textBox9.Size = new System.Drawing.Size(156, 21);
-			this.textBox9.TabIndex = 29;
+			this.TBSkillName9.Location = new System.Drawing.Point(221, 288);
+			this.TBSkillName9.Name = "TBSkillName9";
+			this.TBSkillName9.Size = new System.Drawing.Size(156, 21);
+			this.TBSkillName9.TabIndex = 29;
 			// 
 			// NUDSkillCoolDown0
 			// 
@@ -891,6 +901,7 @@
 			this.BTSave.TabIndex = 76;
 			this.BTSave.Text = "SAVE";
 			this.BTSave.UseVisualStyleBackColor = true;
+			this.BTSave.Click += new System.EventHandler(this.BTSave_Click);
 			// 
 			// BTExit
 			// 
@@ -900,8 +911,9 @@
 			this.BTExit.TabIndex = 77;
 			this.BTExit.Text = "EXIT";
 			this.BTExit.UseVisualStyleBackColor = true;
+			this.BTExit.Click += new System.EventHandler(this.BTExit_Click);
 			// 
-			// settting
+			// settForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -954,15 +966,15 @@
 			this.Controls.Add(this.label11);
 			this.Controls.Add(this.label10);
 			this.Controls.Add(this.NUDSkillCoolDown0);
-			this.Controls.Add(this.textBox9);
-			this.Controls.Add(this.textBox8);
-			this.Controls.Add(this.textBox7);
-			this.Controls.Add(this.textBox6);
-			this.Controls.Add(this.textBox5);
-			this.Controls.Add(this.textBox4);
-			this.Controls.Add(this.textBox3);
-			this.Controls.Add(this.textBox2);
-			this.Controls.Add(this.textBox1);
+			this.Controls.Add(this.TBSkillName9);
+			this.Controls.Add(this.TBSkillName8);
+			this.Controls.Add(this.TBSkillName7);
+			this.Controls.Add(this.TBSkillName6);
+			this.Controls.Add(this.TBSkillName5);
+			this.Controls.Add(this.TBSkillName4);
+			this.Controls.Add(this.TBSkillName3);
+			this.Controls.Add(this.TBSkillName2);
+			this.Controls.Add(this.TBSkillName1);
 			this.Controls.Add(this.TBSkillName0);
 			this.Controls.Add(this.label9);
 			this.Controls.Add(this.label8);
@@ -987,8 +999,10 @@
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
-			this.Name = "settting";
+			this.Name = "settForm";
 			this.Text = "settting";
+			this.TopMost = true;
+			this.Load += new System.EventHandler(this.settting_Load);
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillCoolDown0)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillDuration0)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillDuration1)).EndInit();
@@ -1037,15 +1051,15 @@
 		private System.Windows.Forms.Label label8;
 		private System.Windows.Forms.Label label9;
 		private System.Windows.Forms.TextBox TBSkillName0;
-		private System.Windows.Forms.TextBox textBox1;
-		private System.Windows.Forms.TextBox textBox2;
-		private System.Windows.Forms.TextBox textBox3;
-		private System.Windows.Forms.TextBox textBox4;
-		private System.Windows.Forms.TextBox textBox5;
-		private System.Windows.Forms.TextBox textBox6;
-		private System.Windows.Forms.TextBox textBox7;
-		private System.Windows.Forms.TextBox textBox8;
-		private System.Windows.Forms.TextBox textBox9;
+		private System.Windows.Forms.TextBox TBSkillName1;
+		private System.Windows.Forms.TextBox TBSkillName2;
+		private System.Windows.Forms.TextBox TBSkillName3;
+		private System.Windows.Forms.TextBox TBSkillName4;
+		private System.Windows.Forms.TextBox TBSkillName5;
+		private System.Windows.Forms.TextBox TBSkillName6;
+		private System.Windows.Forms.TextBox TBSkillName7;
+		private System.Windows.Forms.TextBox TBSkillName8;
+		private System.Windows.Forms.TextBox TBSkillName9;
 		private System.Windows.Forms.NumericUpDown NUDSkillCoolDown0;
 		private System.Windows.Forms.Label label10;
 		private System.Windows.Forms.Label label11;

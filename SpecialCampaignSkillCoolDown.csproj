@@ -55,11 +55,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetData.cs" />
-    <Compile Include="settting.cs">
+    <Compile Include="settForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="settting.Designer.cs">
-      <DependentUpon>settting.cs</DependentUpon>
+    <Compile Include="settForm.Designer.cs">
+      <DependentUpon>settForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -73,8 +73,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="settting.resx">
-      <DependentUpon>settting.cs</DependentUpon>
+    <EmbeddedResource Include="settForm.resx">
+      <DependentUpon>settForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -91,6 +91,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="key number.txt" />
+    <Content Include="키보드 훅 1.txt" />
+    <Content Include="키보드 훅 2.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
