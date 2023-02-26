@@ -41,7 +41,9 @@ namespace SpecialCampaignSkillCoolDown
 		public long[] skillDuration = new long[10];	// 스킬 작동시간
 		public bool[] skillUnique = new bool[10];   // 고유스킬여부
 		public int intHookPause = 13;				// 후킹 일시정지 키 int
-		public string stringHookPause = "Return";    // 후킹 일시정지 키 string
+		public string stringHookPause = "Return";   // 후킹 일시정지 키 string
+		public int intGameMode = 123;				// 게임모드 int
+		public string stringGameMode = "F12";		// 게임모드 string
 
 		public bool SaveSettingData()
 		{
@@ -98,6 +100,18 @@ namespace SpecialCampaignSkillCoolDown
 
 				root.AppendChild(xmlHookPause);
 
+				XmlNode xmlGameMode = xml.CreateElement("GameMode");
+
+				XmlNode xmlGameModeInt = xml.CreateElement("int");
+				xmlGameModeInt.InnerText = intGameMode.ToString();
+				xmlGameMode.AppendChild(xmlGameModeInt);
+
+				XmlNode xmlGameModeString = xml.CreateElement("string");
+				xmlGameModeString.InnerText = stringGameMode;
+				xmlGameMode.AppendChild(xmlGameModeString);
+
+				root.AppendChild(xmlGameMode);
+
 
 				xml.Save("skill.xml");
 			}
@@ -140,6 +154,10 @@ namespace SpecialCampaignSkillCoolDown
 				XmlNode xmlHookPause = root.SelectSingleNode("hookPuase");
 				intHookPause = int.Parse(xmlHookPause.SelectSingleNode("int").InnerText);
 				stringHookPause = xmlHookPause.SelectSingleNode("string").InnerText;
+
+				XmlNode xmlGameMode = root.SelectSingleNode("GameMode");
+				intGameMode = int.Parse(xmlGameMode.SelectSingleNode("int").InnerText);
+				stringGameMode = xmlGameMode.SelectSingleNode("string").InnerText;
 			}
 			catch (Exception) { return false; }
 			return true;

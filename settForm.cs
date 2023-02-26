@@ -268,5 +268,17 @@ namespace SpecialCampaignSkillCoolDown
 			data.stringHookPause = e.KeyCode.ToString();
 			BTBindKeyHookPause.Text = e.KeyCode.ToString();
 		}
+
+		private void settForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			data.ReadSettingData();
+		}
+
+		private void BTGameModeBind_KeyUp(object sender, KeyEventArgs e)
+		{
+			data.intGameMode = e.KeyValue;
+			data.stringGameMode = e.KeyCode.ToString();
+			BTGameModeBind.Text = e.KeyCode.ToString();
+		}
 	}
 }

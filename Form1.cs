@@ -130,13 +130,20 @@ namespace SpecialCampaignSkillCoolDown
 			{
 				string name = "";
 				long time = 0;
+				bool runAble = false;
 
 				// 화면갱신
 				if (skill == null)
 				{
                     for(int i = 0; i < leftSkillCoolDown.Count; i++)
 					{
-						leftSkillCoolDown[i].GetLeftCoolDown(ref name, ref time);
+						leftSkillCoolDown[i].GetLeftCoolDown(ref name, ref time, ref runAble);
+
+						if(runAble)
+						{
+							LBCoolDown.Items[i] = name + "(RUN) : " + string.Format("{0:0.0}", (float)time / 1000);
+							break;
+						}
 
 						if(time < 0)
 						{
@@ -153,11 +160,11 @@ namespace SpecialCampaignSkillCoolDown
 				// 스킬 쿨 추가 중복 방지
 				for(int i = 0; i < leftSkillCoolDown.Count; i++)
 				{
-					if(skill.Name == leftSkillCoolDown[i].Name) { return; }
+					if(skill.name == leftSkillCoolDown[i].name) { return; }
 				}
 				leftSkillCoolDown.Add(skill);
-				skill.GetLeftCoolDown(ref name, ref time);
-				LBCoolDown.Items.Add(name + " : " + string.Format("{0:0.0}", (float)time / 1000));
+				skill.GetLeftCoolDown(ref name, ref time, ref runAble);
+				LBCoolDown.Items.Add(name + "(RUN) : " + string.Format("{0:0.0}", (float)time / 1000));
 			}
 		}
 
@@ -168,13 +175,22 @@ namespace SpecialCampaignSkillCoolDown
 
 		private void InPutKeyControll_Tick(object sender, EventArgs e)
 		{
-			// 상단바 및 버튼 보이게 하기
 			if (inputKey == 27)
 			{
+				// 상단바 및 버튼 보이게 하기
 				this.FormBorderStyle = FormBorderStyle.FixedSingle;
 				BTGameMode.Visible = true;
 				BTSetting.Visible = true;
 				BTClear.Visible = true;
+			}
+
+			else if(inputKey == data.intGameMode)
+			{
+				// 상단바 및 버튼 안보이게 하기
+				this.FormBorderStyle = FormBorderStyle.None;
+				BTGameMode.Visible = false;
+				BTSetting.Visible = false;
+				BTClear.Visible = false;
 			}
 
 			// 훅 잠금
@@ -200,7 +216,10 @@ namespace SpecialCampaignSkillCoolDown
 					{
 						controllLeftSkillCoolDown(
 							new leftSkillCoolDownClass(
-								data.skillName[i], data.skillUnique[i] ? ((data.skillCoolDown[i] + data.skillDuration[i]) * 1000) : data.skillCoolDown[i] * 1000));
+								data.skillUnique[i],
+								data.skillName[i],
+								data.skillCoolDown[i] * 1000,
+								data.skillDuration[i] * 1000));
 					}
 				}
 			}
@@ -217,15 +236,19 @@ namespace SpecialCampaignSkillCoolDown
 
 	class leftSkillCoolDownClass
     {
-		public string Name = "";
-		public long coolDown = 0;	// ms, 1000ms == 1s
+		public bool unique = false;
+		public string name = "";
+		public long coolDown = 0;   // ms, 1000ms == 1s
+		public long duration = 0;   // ms, 1000ms == 1s
 		private Stopwatch Stopwatch = new Stopwatch();
 
 		private leftSkillCoolDownClass() { }
-		public leftSkillCoolDownClass(string name, long coolDown)
+		public leftSkillCoolDownClass(bool unique, string name, long coolDown, long duration)
 		{
-			this.Name = name;
+			this.unique = unique;
+			this.name = name;
 			this.coolDown = coolDown;
+			this.duration = duration;
 
 			Stopwatch.Start();
 		}
@@ -236,12 +259,26 @@ namespace SpecialCampaignSkillCoolDown
 
 		private object locker = new object();
 
-		public void GetLeftCoolDown(ref string name, ref long time)
+		public void GetLeftCoolDown(ref string name, ref long time, ref bool runAble)
 		{
 			lock(locker)
 			{
-				name = this.Name;
-				time = this.coolDown - Stopwatch.ElapsedMilliseconds;
+				name = this.name;
+				if(duration > Stopwatch.ElapsedMilliseconds)
+				{
+					time = duration - Stopwatch.ElapsedMilliseconds;
+					runAble = true;
+					return;
+				}
+				if (unique)
+				{
+					time = coolDown + duration - Stopwatch.ElapsedMilliseconds;
+				}
+				else
+				{
+					time = coolDown - Stopwatch.ElapsedMilliseconds;
+				}
+				runAble = false;
 			}
 		}
     }

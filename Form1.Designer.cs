@@ -74,7 +74,7 @@
 			this.LBCoolDown.ItemHeight = 67;
 			this.LBCoolDown.Location = new System.Drawing.Point(94, 83);
 			this.LBCoolDown.Name = "LBCoolDown";
-			this.LBCoolDown.Size = new System.Drawing.Size(800, 670);
+			this.LBCoolDown.Size = new System.Drawing.Size(921, 670);
 			this.LBCoolDown.TabIndex = 3;
 			this.LBCoolDown.UseWaitCursor = true;
 			// 
@@ -109,7 +109,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.Window;
-			this.ClientSize = new System.Drawing.Size(923, 761);
+			this.ClientSize = new System.Drawing.Size(1027, 761);
 			this.Controls.Add(this.LBHookState);
 			this.Controls.Add(this.BTClear);
 			this.Controls.Add(this.LBCoolDown);

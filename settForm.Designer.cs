@@ -108,6 +108,8 @@
 			this.BTExit = new System.Windows.Forms.Button();
 			this.BTBindKeyHookPause = new System.Windows.Forms.Button();
 			this.label16 = new System.Windows.Forms.Label();
+			this.label17 = new System.Windows.Forms.Label();
+			this.BTGameModeBind = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillCoolDown0)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillDuration0)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillDuration1)).BeginInit();
@@ -932,13 +934,34 @@
 			this.label16.Name = "label16";
 			this.label16.Size = new System.Drawing.Size(85, 12);
 			this.label16.TabIndex = 79;
-			this.label16.Text = "인식 정지 버튼";
+			this.label16.Text = "감지 정지 버튼";
+			// 
+			// label17
+			// 
+			this.label17.AutoSize = true;
+			this.label17.Location = new System.Drawing.Point(187, 323);
+			this.label17.Name = "label17";
+			this.label17.Size = new System.Drawing.Size(57, 12);
+			this.label17.TabIndex = 80;
+			this.label17.Text = "게임 모드";
+			// 
+			// BTGameModeBind
+			// 
+			this.BTGameModeBind.Location = new System.Drawing.Point(251, 317);
+			this.BTGameModeBind.Name = "BTGameModeBind";
+			this.BTGameModeBind.Size = new System.Drawing.Size(75, 23);
+			this.BTGameModeBind.TabIndex = 81;
+			this.BTGameModeBind.Text = "f12";
+			this.BTGameModeBind.UseVisualStyleBackColor = true;
+			this.BTGameModeBind.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BTGameModeBind_KeyUp);
 			// 
 			// settForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(636, 353);
+			this.Controls.Add(this.BTGameModeBind);
+			this.Controls.Add(this.label17);
 			this.Controls.Add(this.label16);
 			this.Controls.Add(this.BTBindKeyHookPause);
 			this.Controls.Add(this.BTExit);
@@ -1025,6 +1048,7 @@
 			this.Name = "settForm";
 			this.Text = "settting";
 			this.TopMost = true;
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.settForm_FormClosing);
 			this.Load += new System.EventHandler(this.settting_Load);
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillCoolDown0)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillDuration0)).EndInit();
@@ -1133,5 +1157,7 @@
 		private System.Windows.Forms.Button BTExit;
 		private System.Windows.Forms.Button BTBindKeyHookPause;
 		private System.Windows.Forms.Label label16;
+		private System.Windows.Forms.Label label17;
+		private System.Windows.Forms.Button BTGameModeBind;
 	}
 }
