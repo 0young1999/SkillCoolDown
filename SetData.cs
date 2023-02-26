@@ -33,13 +33,15 @@ namespace SpecialCampaignSkillCoolDown
 			return instance;
 		}
 
-		public bool[] skillEnable = new bool[10];
-		public int[] intSkillBind = new int[10];
-		public string[] stringSkillBInd = new string[10];
-		public string[] skillName = new string[10];
-		public long[] skillCoolDown = new long[10];
-		public long[] skillDuration = new long[10];
-		public bool[] skillUnique = new bool[10];
+		public bool[] skillEnable = new bool[10];	// 사용여부
+		public int[] intSkillBind = new int[10];	// 바인드키 int
+		public string[] stringSkillBInd = new string[10];	// 키 이름
+		public string[] skillName = new string[10];	// 스킬이름
+		public long[] skillCoolDown = new long[10];	// 쿨다운
+		public long[] skillDuration = new long[10];	// 스킬 작동시간
+		public bool[] skillUnique = new bool[10];   // 고유스킬여부
+		public int intHookPause = 13;				// 후킹 일시정지 키 int
+		public string stringHookPause = "Return";    // 후킹 일시정지 키 string
 
 		public bool SaveSettingData()
 		{
@@ -52,34 +54,50 @@ namespace SpecialCampaignSkillCoolDown
 
 				for(int i = 0; i < 10; i++)
 				{
+					XmlNode skillRoot = xml.CreateElement("Skill" + i);
+					root.AppendChild(skillRoot);
+
 					XmlNode xmlSkillEnable = xml.CreateElement("Enable" + i);
 					xmlSkillEnable.InnerText = skillEnable[i].ToString();
-					root.AppendChild(xmlSkillEnable);
+					skillRoot.AppendChild(xmlSkillEnable);
 
 					XmlNode xmlIntSkillBind = xml.CreateElement("IntBind" + i);
 					xmlIntSkillBind.InnerText = intSkillBind[i].ToString();
-					root.AppendChild(xmlIntSkillBind);
+					skillRoot.AppendChild(xmlIntSkillBind);
 
 					XmlNode xmlStringSkillBind = xml.CreateElement("StringBind" + i);
 					xmlStringSkillBind.InnerText = stringSkillBInd[i].Equals("")? " ": stringSkillBInd[i];
-					root.AppendChild(xmlStringSkillBind);
+					skillRoot.AppendChild(xmlStringSkillBind);
 
 					XmlNode xmlSkillName = xml.CreateElement("Name" + i);
 					xmlSkillName.InnerText = skillName[i].Equals("") ? " " : skillName[i];
-					root.AppendChild(xmlSkillName);
+					skillRoot.AppendChild(xmlSkillName);
 
 					XmlNode xmlSkillCoolDown = xml.CreateElement("CoolDown" + i);
 					xmlSkillCoolDown.InnerText = skillCoolDown[i].ToString();
-					root.AppendChild(xmlSkillCoolDown);
+					skillRoot.AppendChild(xmlSkillCoolDown);
 
 					XmlNode xmlSkillDuration = xml.CreateElement("Duration" + i);
 					xmlSkillDuration.InnerText = skillDuration[i].ToString();
-					root.AppendChild(xmlSkillDuration);
+					skillRoot.AppendChild(xmlSkillDuration);
 
 					XmlNode xmlSkillUnique = xml.CreateElement("Unique" + i);
 					xmlSkillUnique.InnerText = skillUnique[i].ToString();
-					root.AppendChild(xmlSkillUnique);
+					skillRoot.AppendChild(xmlSkillUnique);
 				}
+
+				XmlNode xmlHookPause = xml.CreateElement("hookPuase");
+
+				XmlNode xmlHookPauseInt = xml.CreateElement("int");
+				xmlHookPauseInt.InnerText = intHookPause.ToString();
+				xmlHookPause.AppendChild(xmlHookPauseInt);
+
+				XmlNode xmlHookPauseString = xml.CreateElement("string");
+				xmlHookPauseString.InnerText = stringHookPause;
+				xmlHookPause.AppendChild(xmlHookPauseString);
+
+				root.AppendChild(xmlHookPause);
+
 
 				xml.Save("skill.xml");
 			}
@@ -104,19 +122,24 @@ namespace SpecialCampaignSkillCoolDown
 				{
 					try
 					{
-						skillEnable[i] = bool.Parse(root.SelectSingleNode("Enable" + i).InnerText);
-						intSkillBind[i] = int.Parse(root.SelectSingleNode("IntBind" + i).InnerText);
-						stringSkillBInd[i] = root.SelectSingleNode("StringBind" + i).InnerText;
-						skillName[i] = root.SelectSingleNode("Name" + i).InnerText;
-						skillCoolDown[i] = long.Parse(root.SelectSingleNode("CoolDown" + i).InnerText);
-						skillDuration[i] = long.Parse(root.SelectSingleNode("Duration" + i).InnerText);
-						skillUnique[i] = bool.Parse(root.SelectSingleNode("Unique" + i).InnerText);
+						XmlNode skillRoot = root.SelectSingleNode("Skill" + i);
+						skillEnable[i] = bool.Parse(skillRoot.SelectSingleNode("Enable" + i).InnerText);
+						intSkillBind[i] = int.Parse(skillRoot.SelectSingleNode("IntBind" + i).InnerText);
+						stringSkillBInd[i] = skillRoot.SelectSingleNode("StringBind" + i).InnerText;
+						skillName[i] = skillRoot.SelectSingleNode("Name" + i).InnerText;
+						skillCoolDown[i] = long.Parse(skillRoot.SelectSingleNode("CoolDown" + i).InnerText);
+						skillDuration[i] = long.Parse(skillRoot.SelectSingleNode("Duration" + i).InnerText);
+						skillUnique[i] = bool.Parse(skillRoot.SelectSingleNode("Unique" + i).InnerText);
 					}
 					catch (NullReferenceException)
 					{
 						return false;
 					}
 				}
+
+				XmlNode xmlHookPause = root.SelectSingleNode("hookPuase");
+				intHookPause = int.Parse(xmlHookPause.SelectSingleNode("int").InnerText);
+				stringHookPause = xmlHookPause.SelectSingleNode("string").InnerText;
 			}
 			catch (Exception) { return false; }
 			return true;

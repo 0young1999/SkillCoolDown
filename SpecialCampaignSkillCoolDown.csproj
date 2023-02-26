@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="key number.txt" />
+    <None Include="README" />
     <Content Include="키보드 훅 1.txt" />
     <Content Include="키보드 훅 2.txt" />
   </ItemGroup>

@@ -32,16 +32,16 @@ namespace SpecialCampaignSkillCoolDown
 			data.skillEnable[8] = CBEnable8.Checked;
 			data.skillEnable[9] = CBEnable9.Checked;
 
-			data.stringSkillBInd[0] = label0.Text;
-			data.stringSkillBInd[1] = label1.Text;
-			data.stringSkillBInd[2] = label2.Text;
-			data.stringSkillBInd[3] = label3.Text;
-			data.stringSkillBInd[4] = label4.Text;
-			data.stringSkillBInd[5] = label5.Text;
-			data.stringSkillBInd[6] = label6.Text;
-			data.stringSkillBInd[7] = label7.Text;
-			data.stringSkillBInd[8] = label8.Text;
-			data.stringSkillBInd[9] = label9.Text;
+			//data.stringSkillBInd[0] = label0.Text;
+			//data.stringSkillBInd[1] = label1.Text;
+			//data.stringSkillBInd[2] = label2.Text;
+			//data.stringSkillBInd[3] = label3.Text;
+			//data.stringSkillBInd[4] = label4.Text;
+			//data.stringSkillBInd[5] = label5.Text;
+			//data.stringSkillBInd[6] = label6.Text;
+			//data.stringSkillBInd[7] = label7.Text;
+			//data.stringSkillBInd[8] = label8.Text;
+			//data.stringSkillBInd[9] = label9.Text;
 
 			data.skillName[0] = TBSkillName0.Text;
 			data.skillName[1] = TBSkillName1.Text;
@@ -163,6 +163,8 @@ namespace SpecialCampaignSkillCoolDown
 			CBUniqueSkill7.Checked = data.skillUnique[7];
 			CBUniqueSkill8.Checked = data.skillUnique[8];
 			CBUniqueSkill9.Checked = data.skillUnique[9];
+
+			BTBindKeyHookPause.Text = data.stringHookPause;
 		}
 
 		private void KeyBind(int number, KeyEventArgs e)
@@ -258,6 +260,13 @@ namespace SpecialCampaignSkillCoolDown
 		private void BTBind9_KeyUp(object sender, KeyEventArgs e)
 		{
 			KeyBind(9, e);
+		}
+
+		private void BTBindKeyHookPause_KeyUp(object sender, KeyEventArgs e)
+		{
+			data.intHookPause = e.KeyValue;
+			data.stringHookPause = e.KeyCode.ToString();
+			BTBindKeyHookPause.Text = e.KeyCode.ToString();
 		}
 	}
 }

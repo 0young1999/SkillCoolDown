@@ -106,6 +106,8 @@
 			this.NUDSkillCoolDown9 = new System.Windows.Forms.NumericUpDown();
 			this.BTSave = new System.Windows.Forms.Button();
 			this.BTExit = new System.Windows.Forms.Button();
+			this.BTBindKeyHookPause = new System.Windows.Forms.Button();
+			this.label16 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillCoolDown0)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillDuration0)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillDuration1)).BeginInit();
@@ -913,11 +915,32 @@
 			this.BTExit.UseVisualStyleBackColor = true;
 			this.BTExit.Click += new System.EventHandler(this.BTExit_Click);
 			// 
+			// BTBindKeyHookPause
+			// 
+			this.BTBindKeyHookPause.Location = new System.Drawing.Point(105, 318);
+			this.BTBindKeyHookPause.Name = "BTBindKeyHookPause";
+			this.BTBindKeyHookPause.Size = new System.Drawing.Size(75, 23);
+			this.BTBindKeyHookPause.TabIndex = 78;
+			this.BTBindKeyHookPause.Text = "button1";
+			this.BTBindKeyHookPause.UseVisualStyleBackColor = true;
+			this.BTBindKeyHookPause.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BTBindKeyHookPause_KeyUp);
+			// 
+			// label16
+			// 
+			this.label16.AutoSize = true;
+			this.label16.Location = new System.Drawing.Point(10, 323);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(85, 12);
+			this.label16.TabIndex = 79;
+			this.label16.Text = "인식 정지 버튼";
+			// 
 			// settForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(636, 353);
+			this.Controls.Add(this.label16);
+			this.Controls.Add(this.BTBindKeyHookPause);
 			this.Controls.Add(this.BTExit);
 			this.Controls.Add(this.BTSave);
 			this.Controls.Add(this.CBUniqueSkill9);
@@ -1108,5 +1131,7 @@
 		private System.Windows.Forms.NumericUpDown NUDSkillCoolDown9;
 		private System.Windows.Forms.Button BTSave;
 		private System.Windows.Forms.Button BTExit;
+		private System.Windows.Forms.Button BTBindKeyHookPause;
+		private System.Windows.Forms.Label label16;
 	}
 }

@@ -178,7 +178,7 @@ namespace SpecialCampaignSkillCoolDown
 			}
 
 			// 훅 잠금
-			else if(inputKey == 13)
+			else if(inputKey == data.intHookPause)
 			{
 				if(hookState)
 				{
