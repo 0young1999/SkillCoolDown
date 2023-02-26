@@ -58,6 +58,7 @@ namespace SpecialCampaignSkillCoolDown
 		public void SetHook()
 		{
 			hookState = true;
+			LBHookState.Text = "감지 중";
 			IntPtr hInstance = LoadLibrary("User32");
 			hhook = SetWindowsHookEx(13, _proc, hInstance, 0);
 		}
@@ -179,7 +180,16 @@ namespace SpecialCampaignSkillCoolDown
 			// 훅 잠금
 			else if(inputKey == 13)
 			{
-				hookState = !hookState;
+				if(hookState)
+				{
+					LBHookState.Text = "감지 해제";
+					hookState = false;
+				}
+				else
+				{
+					LBHookState.Text = "감지 중";
+					hookState = true;
+				}
 			}
 
 			else if (inputKey != 0 && hookState)
