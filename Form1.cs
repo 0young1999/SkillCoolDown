@@ -142,14 +142,14 @@ namespace SpecialCampaignSkillCoolDown
 						if(runAble)
 						{
 							LBCoolDown.Items[i] = name + "(RUN) : " + string.Format("{0:0.0}", (float)time / 1000);
-							break;
+							continue;
 						}
 
 						if(time < 0)
 						{
 							leftSkillCoolDown.Remove(leftSkillCoolDown[i]);
 							LBCoolDown.Items.RemoveAt(i);
-							break;
+							continue;
 						}
 
 						LBCoolDown.Items[i] = name + " : " + string.Format("{0:0.0}", (float)time / 1000);
