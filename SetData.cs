@@ -43,7 +43,9 @@ namespace SpecialCampaignSkillCoolDown
 		public int intHookPause = 13;				// 후킹 일시정지 키 int
 		public string stringHookPause = "Return";   // 후킹 일시정지 키 string
 		public int intGameMode = 123;				// 게임모드 int
-		public string stringGameMode = "F12";		// 게임모드 string
+		public string stringGameMode = "F12";       // 게임모드 string
+		public int intDelete = 122;                 // 직전 스킬 삭제 int
+		public string stringDelete = "F11";			// 직전 스킬 삭제 string
 
 		public bool SaveSettingData()
 		{
@@ -112,6 +114,17 @@ namespace SpecialCampaignSkillCoolDown
 
 				root.AppendChild(xmlGameMode);
 
+				XmlNode xmlDelete = xml.CreateElement("Delete");
+
+				XmlNode xmlDeleteInt = xml.CreateElement("int");
+				xmlDeleteInt.InnerText = intDelete.ToString();
+				xmlDelete.AppendChild(xmlDeleteInt);
+
+				XmlNode xmlDeleteString = xml.CreateElement("string");
+				xmlDeleteString.InnerText = stringDelete;
+				xmlDelete.AppendChild(xmlDeleteString);
+
+				root.AppendChild(xmlDelete);
 
 				xml.Save("skill.xml");
 			}
@@ -158,6 +171,10 @@ namespace SpecialCampaignSkillCoolDown
 				XmlNode xmlGameMode = root.SelectSingleNode("GameMode");
 				intGameMode = int.Parse(xmlGameMode.SelectSingleNode("int").InnerText);
 				stringGameMode = xmlGameMode.SelectSingleNode("string").InnerText;
+
+				XmlNode xmlDelete = root.SelectSingleNode("Delete");
+				intDelete = int.Parse(xmlDelete.SelectSingleNode("int").InnerText);
+				stringDelete = xmlDelete.SelectSingleNode("string").InnerText;
 			}
 			catch (Exception) { return false; }
 			return true;

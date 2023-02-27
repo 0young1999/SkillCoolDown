@@ -110,6 +110,8 @@
 			this.label16 = new System.Windows.Forms.Label();
 			this.label17 = new System.Windows.Forms.Label();
 			this.BTGameModeBind = new System.Windows.Forms.Button();
+			this.label18 = new System.Windows.Forms.Label();
+			this.BTDelete = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillCoolDown0)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillDuration0)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillDuration1)).BeginInit();
@@ -899,7 +901,7 @@
 			// 
 			// BTSave
 			// 
-			this.BTSave.Location = new System.Drawing.Point(377, 318);
+			this.BTSave.Location = new System.Drawing.Point(466, 323);
 			this.BTSave.Name = "BTSave";
 			this.BTSave.Size = new System.Drawing.Size(75, 23);
 			this.BTSave.TabIndex = 76;
@@ -909,7 +911,7 @@
 			// 
 			// BTExit
 			// 
-			this.BTExit.Location = new System.Drawing.Point(458, 318);
+			this.BTExit.Location = new System.Drawing.Point(547, 323);
 			this.BTExit.Name = "BTExit";
 			this.BTExit.Size = new System.Drawing.Size(75, 23);
 			this.BTExit.TabIndex = 77;
@@ -919,7 +921,7 @@
 			// 
 			// BTBindKeyHookPause
 			// 
-			this.BTBindKeyHookPause.Location = new System.Drawing.Point(105, 318);
+			this.BTBindKeyHookPause.Location = new System.Drawing.Point(12, 338);
 			this.BTBindKeyHookPause.Name = "BTBindKeyHookPause";
 			this.BTBindKeyHookPause.Size = new System.Drawing.Size(75, 23);
 			this.BTBindKeyHookPause.TabIndex = 78;
@@ -939,7 +941,7 @@
 			// label17
 			// 
 			this.label17.AutoSize = true;
-			this.label17.Location = new System.Drawing.Point(187, 323);
+			this.label17.Location = new System.Drawing.Point(115, 323);
 			this.label17.Name = "label17";
 			this.label17.Size = new System.Drawing.Size(57, 12);
 			this.label17.TabIndex = 80;
@@ -947,7 +949,7 @@
 			// 
 			// BTGameModeBind
 			// 
-			this.BTGameModeBind.Location = new System.Drawing.Point(251, 317);
+			this.BTGameModeBind.Location = new System.Drawing.Point(105, 338);
 			this.BTGameModeBind.Name = "BTGameModeBind";
 			this.BTGameModeBind.Size = new System.Drawing.Size(75, 23);
 			this.BTGameModeBind.TabIndex = 81;
@@ -955,11 +957,32 @@
 			this.BTGameModeBind.UseVisualStyleBackColor = true;
 			this.BTGameModeBind.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BTGameModeBind_KeyUp);
 			// 
+			// label18
+			// 
+			this.label18.AutoSize = true;
+			this.label18.Location = new System.Drawing.Point(191, 323);
+			this.label18.Name = "label18";
+			this.label18.Size = new System.Drawing.Size(125, 12);
+			this.label18.TabIndex = 82;
+			this.label18.Text = "마지막 스킬 사용 삭제";
+			// 
+			// BTDelete
+			// 
+			this.BTDelete.Location = new System.Drawing.Point(209, 338);
+			this.BTDelete.Name = "BTDelete";
+			this.BTDelete.Size = new System.Drawing.Size(75, 23);
+			this.BTDelete.TabIndex = 83;
+			this.BTDelete.Text = "f11";
+			this.BTDelete.UseVisualStyleBackColor = true;
+			this.BTDelete.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BTDelete_KeyUp);
+			// 
 			// settForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(636, 353);
+			this.ClientSize = new System.Drawing.Size(636, 501);
+			this.Controls.Add(this.BTDelete);
+			this.Controls.Add(this.label18);
 			this.Controls.Add(this.BTGameModeBind);
 			this.Controls.Add(this.label17);
 			this.Controls.Add(this.label16);
@@ -1159,5 +1182,7 @@
 		private System.Windows.Forms.Label label16;
 		private System.Windows.Forms.Label label17;
 		private System.Windows.Forms.Button BTGameModeBind;
+		private System.Windows.Forms.Label label18;
+		private System.Windows.Forms.Button BTDelete;
 	}
 }

@@ -58,7 +58,7 @@ namespace SpecialCampaignSkillCoolDown
 		public void SetHook()
 		{
 			hookState = true;
-			LBHookState.Text = "감지 중";
+			LBHookState.ForeColor = Color.Blue;
 			IntPtr hInstance = LoadLibrary("User32");
 			hhook = SetWindowsHookEx(13, _proc, hInstance, 0);
 		}
@@ -198,13 +198,23 @@ namespace SpecialCampaignSkillCoolDown
 			{
 				if(hookState)
 				{
-					LBHookState.Text = "감지 해제";
+					LBHookState.ForeColor = Color.Red;
 					hookState = false;
 				}
 				else
 				{
-					LBHookState.Text = "감지 중";
+					LBHookState.ForeColor = Color.Blue;
 					hookState = true;
+				}
+			}
+
+			// 마지막 스킬 삭제
+			else if(inputKey == data.intDelete && leftSkillCoolDown.Count > 0)
+			{
+				lock(leftSkillCoolDownLock)
+				{
+					LBCoolDown.Items.RemoveAt(leftSkillCoolDown.Count - 1);
+					leftSkillCoolDown.RemoveAt(leftSkillCoolDown.Count - 1);
 				}
 			}
 

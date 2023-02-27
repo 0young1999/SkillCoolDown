@@ -68,13 +68,13 @@
 			this.LBCoolDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.LBCoolDown.CausesValidation = false;
 			this.LBCoolDown.Enabled = false;
-			this.LBCoolDown.Font = new System.Drawing.Font("굴림", 50F, System.Drawing.FontStyle.Bold);
+			this.LBCoolDown.Font = new System.Drawing.Font("굴림", 30F, System.Drawing.FontStyle.Bold);
 			this.LBCoolDown.ForeColor = System.Drawing.Color.Red;
 			this.LBCoolDown.FormattingEnabled = true;
-			this.LBCoolDown.ItemHeight = 67;
-			this.LBCoolDown.Location = new System.Drawing.Point(94, 83);
+			this.LBCoolDown.ItemHeight = 40;
+			this.LBCoolDown.Location = new System.Drawing.Point(93, 56);
 			this.LBCoolDown.Name = "LBCoolDown";
-			this.LBCoolDown.Size = new System.Drawing.Size(921, 670);
+			this.LBCoolDown.Size = new System.Drawing.Size(594, 400);
 			this.LBCoolDown.TabIndex = 3;
 			this.LBCoolDown.UseWaitCursor = true;
 			// 
@@ -96,20 +96,21 @@
 			// LBHookState
 			// 
 			this.LBHookState.AutoSize = true;
-			this.LBHookState.Font = new System.Drawing.Font("굴림", 50F);
-			this.LBHookState.ForeColor = System.Drawing.Color.Red;
+			this.LBHookState.BackColor = System.Drawing.Color.Transparent;
+			this.LBHookState.Font = new System.Drawing.Font("굴림", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.LBHookState.ForeColor = System.Drawing.Color.Blue;
 			this.LBHookState.Location = new System.Drawing.Point(94, 13);
 			this.LBHookState.Name = "LBHookState";
-			this.LBHookState.Size = new System.Drawing.Size(67, 67);
+			this.LBHookState.Size = new System.Drawing.Size(323, 40);
 			this.LBHookState.TabIndex = 5;
-			this.LBHookState.Text = "2";
+			this.LBHookState.Text = "Skill Cool Down";
 			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.Window;
-			this.ClientSize = new System.Drawing.Size(1027, 761);
+			this.ClientSize = new System.Drawing.Size(699, 468);
 			this.Controls.Add(this.LBHookState);
 			this.Controls.Add(this.BTClear);
 			this.Controls.Add(this.LBCoolDown);
@@ -123,7 +124,7 @@
 			this.Name = "Form1";
 			this.ShowIcon = false;
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-			this.Text = "SpecialCampaignSkillCoolDown";
+			this.Text = "SkillCoolDown";
 			this.TopMost = true;
 			this.TransparencyKey = System.Drawing.Color.Transparent;
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
