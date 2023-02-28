@@ -112,6 +112,11 @@
 			this.BTGameModeBind = new System.Windows.Forms.Button();
 			this.label18 = new System.Windows.Forms.Label();
 			this.BTDelete = new System.Windows.Forms.Button();
+			this.label19 = new System.Windows.Forms.Label();
+			this.CBGaleRoad = new System.Windows.Forms.CheckBox();
+			this.NUDGaleRoad = new System.Windows.Forms.NumericUpDown();
+			this.label20 = new System.Windows.Forms.Label();
+			this.BTCorrection = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillCoolDown0)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillDuration0)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillDuration1)).BeginInit();
@@ -132,6 +137,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillCoolDown8)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillDuration9)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillCoolDown9)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.NUDGaleRoad)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// BTBind0
@@ -976,11 +982,70 @@
 			this.BTDelete.UseVisualStyleBackColor = true;
 			this.BTDelete.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BTDelete_KeyUp);
 			// 
+			// label19
+			// 
+			this.label19.AutoSize = true;
+			this.label19.Location = new System.Drawing.Point(21, 364);
+			this.label19.Name = "label19";
+			this.label19.Size = new System.Drawing.Size(53, 12);
+			this.label19.TabIndex = 84;
+			this.label19.Text = "질풍가도";
+			// 
+			// CBGaleRoad
+			// 
+			this.CBGaleRoad.AutoSize = true;
+			this.CBGaleRoad.Location = new System.Drawing.Point(12, 383);
+			this.CBGaleRoad.Name = "CBGaleRoad";
+			this.CBGaleRoad.Size = new System.Drawing.Size(15, 14);
+			this.CBGaleRoad.TabIndex = 85;
+			this.CBGaleRoad.UseVisualStyleBackColor = true;
+			// 
+			// NUDGaleRoad
+			// 
+			this.NUDGaleRoad.Location = new System.Drawing.Point(33, 381);
+			this.NUDGaleRoad.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+			this.NUDGaleRoad.Name = "NUDGaleRoad";
+			this.NUDGaleRoad.Size = new System.Drawing.Size(54, 21);
+			this.NUDGaleRoad.TabIndex = 86;
+			this.NUDGaleRoad.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+			// 
+			// label20
+			// 
+			this.label20.AutoSize = true;
+			this.label20.Location = new System.Drawing.Point(333, 323);
+			this.label20.Name = "label20";
+			this.label20.Size = new System.Drawing.Size(107, 12);
+			this.label20.TabIndex = 87;
+			this.label20.Text = "맵 로딩 보정(10초)";
+			// 
+			// BTCorrection
+			// 
+			this.BTCorrection.Location = new System.Drawing.Point(347, 338);
+			this.BTCorrection.Name = "BTCorrection";
+			this.BTCorrection.Size = new System.Drawing.Size(75, 23);
+			this.BTCorrection.TabIndex = 88;
+			this.BTCorrection.Text = "button1";
+			this.BTCorrection.UseVisualStyleBackColor = true;
+			this.BTCorrection.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BTCorrection_KeyUp);
+			// 
 			// settForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(636, 501);
+			this.ClientSize = new System.Drawing.Size(636, 409);
+			this.Controls.Add(this.BTCorrection);
+			this.Controls.Add(this.label20);
+			this.Controls.Add(this.NUDGaleRoad);
+			this.Controls.Add(this.CBGaleRoad);
+			this.Controls.Add(this.label19);
 			this.Controls.Add(this.BTDelete);
 			this.Controls.Add(this.label18);
 			this.Controls.Add(this.BTGameModeBind);
@@ -1093,6 +1158,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillCoolDown8)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillDuration9)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillCoolDown9)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.NUDGaleRoad)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -1184,5 +1250,10 @@
 		private System.Windows.Forms.Button BTGameModeBind;
 		private System.Windows.Forms.Label label18;
 		private System.Windows.Forms.Button BTDelete;
+		private System.Windows.Forms.Label label19;
+		private System.Windows.Forms.CheckBox CBGaleRoad;
+		private System.Windows.Forms.NumericUpDown NUDGaleRoad;
+		private System.Windows.Forms.Label label20;
+		private System.Windows.Forms.Button BTCorrection;
 	}
 }

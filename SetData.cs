@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Linq;
 
 namespace SpecialCampaignSkillCoolDown
 {
 	internal class SetData
 	{
-		private SetData() 
+		private SetData()
 		{
-			for(int i = 0; i < 10; i++)
+			for (int i = 0; i < 10; i++)
 			{
 				skillEnable[i] = false;
 				intSkillBind[i] = 0;
@@ -33,19 +28,24 @@ namespace SpecialCampaignSkillCoolDown
 			return instance;
 		}
 
-		public bool[] skillEnable = new bool[10];	// 사용여부
-		public int[] intSkillBind = new int[10];	// 바인드키 int
-		public string[] stringSkillBInd = new string[10];	// 키 이름
-		public string[] skillName = new string[10];	// 스킬이름
-		public long[] skillCoolDown = new long[10];	// 쿨다운
-		public long[] skillDuration = new long[10];	// 스킬 작동시간
+		public bool[] skillEnable = new bool[10];   // 사용여부
+		public int[] intSkillBind = new int[10];    // 바인드키 int
+		public string[] stringSkillBInd = new string[10];   // 키 이름
+		public string[] skillName = new string[10]; // 스킬이름
+		public long[] skillCoolDown = new long[10]; // 쿨다운
+		public long[] skillDuration = new long[10]; // 스킬 작동시간
 		public bool[] skillUnique = new bool[10];   // 고유스킬여부
-		public int intHookPause = 13;				// 후킹 일시정지 키 int
+		public int intHookPause = 13;               // 후킹 일시정지 키 int
 		public string stringHookPause = "Return";   // 후킹 일시정지 키 string
-		public int intGameMode = 123;				// 게임모드 int
+		public int intGameMode = 123;               // 게임모드 int
 		public string stringGameMode = "F12";       // 게임모드 string
 		public int intDelete = 122;                 // 직전 스킬 삭제 int
-		public string stringDelete = "F11";			// 직전 스킬 삭제 string
+		public string stringDelete = "F11";         // 직전 스킬 삭제 string
+		public bool galeRoadEnable = false;         // 질풍가도 사용여부
+		public long galeRoadCoolDown = 5;           // 질풍가도 쿨타임
+		public int intCorrection = 121;             // 맵 로딩 보정 int
+		public string stringCorrection = "F10";		// 맵 로딩 보정 string
+
 
 		public bool SaveSettingData()
 		{
@@ -56,7 +56,7 @@ namespace SpecialCampaignSkillCoolDown
 				XmlNode root = xml.CreateElement("root");
 				xml.AppendChild(root);
 
-				for(int i = 0; i < 10; i++)
+				for (int i = 0; i < 10; i++)
 				{
 					XmlNode skillRoot = xml.CreateElement("Skill" + i);
 					root.AppendChild(skillRoot);
@@ -70,7 +70,7 @@ namespace SpecialCampaignSkillCoolDown
 					skillRoot.AppendChild(xmlIntSkillBind);
 
 					XmlNode xmlStringSkillBind = xml.CreateElement("StringBind" + i);
-					xmlStringSkillBind.InnerText = stringSkillBInd[i].Equals("")? " ": stringSkillBInd[i];
+					xmlStringSkillBind.InnerText = stringSkillBInd[i].Equals("") ? " " : stringSkillBInd[i];
 					skillRoot.AppendChild(xmlStringSkillBind);
 
 					XmlNode xmlSkillName = xml.CreateElement("Name" + i);
@@ -89,6 +89,18 @@ namespace SpecialCampaignSkillCoolDown
 					xmlSkillUnique.InnerText = skillUnique[i].ToString();
 					skillRoot.AppendChild(xmlSkillUnique);
 				}
+
+				XmlNode xmlDoubleKeySkill = xml.CreateElement("DoubleKeySkill");
+
+				XmlNode xmlGaleRoadEnable = xml.CreateElement("GaleRoadEnable");
+				xmlGaleRoadEnable.InnerText = galeRoadEnable.ToString();
+				xmlDoubleKeySkill.AppendChild(xmlGaleRoadEnable);
+
+				XmlNode xmlGaleRoadCoolDown = xml.CreateElement("GaleRoadCoolDown");
+				xmlGaleRoadCoolDown.InnerText = galeRoadCoolDown.ToString();
+				xmlDoubleKeySkill.AppendChild(xmlGaleRoadCoolDown);
+
+				root.AppendChild(xmlDoubleKeySkill);
 
 				XmlNode xmlHookPause = xml.CreateElement("hookPuase");
 
@@ -126,6 +138,18 @@ namespace SpecialCampaignSkillCoolDown
 
 				root.AppendChild(xmlDelete);
 
+				XmlNode xmlCorrection = xml.CreateElement("Correction");
+
+				XmlNode xmlCorrectionInt = xml.CreateElement("int");
+				xmlCorrectionInt.InnerText = intCorrection.ToString();
+				xmlCorrection.AppendChild(xmlCorrectionInt);
+
+				XmlNode xmlCorrectionString = xml.CreateElement("string");
+				xmlCorrectionString.InnerText = stringCorrection;
+				xmlCorrection.AppendChild(xmlCorrectionString);
+
+				root.AppendChild(xmlCorrection);
+
 				xml.Save("skill.xml");
 			}
 			catch
@@ -145,7 +169,7 @@ namespace SpecialCampaignSkillCoolDown
 
 				XmlNode root = xml.SelectSingleNode("root");
 
-				for(int i = 0; i < 10; i++)
+				for (int i = 0; i < 10; i++)
 				{
 					try
 					{
@@ -164,6 +188,14 @@ namespace SpecialCampaignSkillCoolDown
 					}
 				}
 
+				try
+				{
+					XmlNode xmlDoubleSkill = root.SelectSingleNode("DoubleKeySkill");
+					galeRoadEnable = bool.Parse(xmlDoubleSkill.SelectSingleNode("GaleRoadEnable").InnerText);
+					galeRoadCoolDown = long.Parse(xmlDoubleSkill.SelectSingleNode("GaleRoadCoolDown").InnerText);
+				}
+				catch { }
+
 				XmlNode xmlHookPause = root.SelectSingleNode("hookPuase");
 				intHookPause = int.Parse(xmlHookPause.SelectSingleNode("int").InnerText);
 				stringHookPause = xmlHookPause.SelectSingleNode("string").InnerText;
@@ -175,6 +207,10 @@ namespace SpecialCampaignSkillCoolDown
 				XmlNode xmlDelete = root.SelectSingleNode("Delete");
 				intDelete = int.Parse(xmlDelete.SelectSingleNode("int").InnerText);
 				stringDelete = xmlDelete.SelectSingleNode("string").InnerText;
+
+				XmlNode xmlCorrection = root.SelectSingleNode("Correction");
+				intCorrection = int.Parse(xmlCorrection.SelectSingleNode("int").InnerText);
+				stringCorrection = xmlCorrection.SelectSingleNode("string").InnerText;
 			}
 			catch (Exception) { return false; }
 			return true;

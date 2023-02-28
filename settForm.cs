@@ -30,6 +30,9 @@ namespace SpecialCampaignSkillCoolDown
 				data.skillUnique[i] = ((CheckBox)Controls.Find("CBUniqueSkill" + i, true).First()).Checked;
 			}
 
+			data.galeRoadEnable = CBGaleRoad.Checked;
+			data.galeRoadCoolDown = (long)NUDGaleRoad.Value;
+
 			data.SaveSettingData();
 		}
 
@@ -51,11 +54,12 @@ namespace SpecialCampaignSkillCoolDown
 				((CheckBox)Controls.Find("CBUniqueSkill" + i, true).First()).Checked = data.skillUnique[i];
 			}
 
+			CBGaleRoad.Checked = data.galeRoadEnable;
+			NUDGaleRoad.Value = data.galeRoadCoolDown;
 			BTBindKeyHookPause.Text = data.stringHookPause;
 			BTGameModeBind.Text = data.stringGameMode;
 			BTDelete.Text = data.stringDelete;
-
-			//((NumericUpDown)this.Controls.Find("NUDSkillCoolDown9", true).First()).Value = 300;
+			BTCorrection.Text = data.stringCorrection;
 		}
 
 		private void KeyBind(int number, KeyEventArgs e)
@@ -145,6 +149,13 @@ namespace SpecialCampaignSkillCoolDown
 			data.intDelete = e.KeyValue;
 			data.stringDelete = e.KeyCode.ToString();
 			BTDelete.Text = e.KeyCode.ToString();
+		}
+
+		private void BTCorrection_KeyUp(object sender, KeyEventArgs e)
+		{
+			data.intCorrection = e.KeyValue;
+			data.stringCorrection = e.KeyCode.ToString();
+			BTCorrection.Text = e.KeyCode.ToString();
 		}
 	}
 }

@@ -93,3 +93,6 @@ tap 9
 capsLook 20
 
 enter 13
+
+ctrl 162
+sp 32
