@@ -206,6 +206,7 @@ namespace SpecialCampaignSkillCoolDown
 			else if (_inputKey == 162)
 			{
 				if (!_watch.IsRunning) _watch.Start();
+				else _watch.Restart();
 			}
 
 			// 질풍가도
