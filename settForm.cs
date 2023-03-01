@@ -42,7 +42,7 @@ namespace SpecialCampaignSkillCoolDown
 			Close();
 		}
 
-		private void settting_Load(object sender, EventArgs e)
+		private void Settting_Load(object sender, EventArgs e)
 		{
 			for(int i = 0; i < 10; i++)
 			{
@@ -132,7 +132,7 @@ namespace SpecialCampaignSkillCoolDown
 			BTBindKeyHookPause.Text = e.KeyCode.ToString();
 		}
 
-		private void settForm_FormClosing(object sender, FormClosingEventArgs e)
+		private void SettForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			data.ReadSettingData();
 		}

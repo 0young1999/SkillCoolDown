@@ -16,10 +16,13 @@ namespace SpecialCampaignSkillCoolDown
 		private static bool _hookState = false;
 
 		// ctrl key stop watch
-		private static Stopwatch _watch = new Stopwatch();
+		private static Stopwatch _ctrlWatch = new Stopwatch();
+		
+		// space key stop watch
+		private static Stopwatch _spaceWatch = new Stopwatch();
 
 		// 쿨타임 돌고 있는 스킬들
-		private static List<leftSkillCoolDownClass> _leftSkillCoolDown = new List<leftSkillCoolDownClass>();
+		private static List<LeftSkillCoolDownClass> _leftSkillCoolDown = new List<LeftSkillCoolDownClass>();
 		private object _leftSkillCoolDownLock = new object();
 
 
@@ -45,7 +48,7 @@ namespace SpecialCampaignSkillCoolDown
 
 		private delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
 
-		private LowLevelKeyboardProc _proc = hookProc;
+		private LowLevelKeyboardProc _proc = HookProc;
 
 
 		private static IntPtr _hhook = IntPtr.Zero;
@@ -66,7 +69,7 @@ namespace SpecialCampaignSkillCoolDown
 			UnhookWindowsHookEx(_hhook);
 		}
 
-		public static IntPtr hookProc(int code, IntPtr wParam, IntPtr lParam)
+		public static IntPtr HookProc(int code, IntPtr wParam, IntPtr lParam)
 		{
 			if (code >= 0 && wParam == (IntPtr)0x100)
 			{
@@ -120,7 +123,7 @@ namespace SpecialCampaignSkillCoolDown
 			SetHook();
 		}
 
-		private void controllLeftSkillCoolDown(leftSkillCoolDownClass skill)
+		private void ControllLeftSkillCoolDown(LeftSkillCoolDownClass skill)
 		{
 			lock (_leftSkillCoolDownLock)
 			{
@@ -166,11 +169,26 @@ namespace SpecialCampaignSkillCoolDown
 
 		private void TimerSkillCoolDown_Tick(object sender, EventArgs e)
 		{
-			controllLeftSkillCoolDown(null);
+			ControllLeftSkillCoolDown(null);
 		}
 
 		private void InPutKeyControll_Tick(object sender, EventArgs e)
 		{
+			// ctrl 인식
+			if (_inputKey == 162)
+			{
+				if (!_ctrlWatch.IsRunning) _ctrlWatch.Start();
+				else _ctrlWatch.Restart();
+			}
+
+			// space 인식
+			else if (_inputKey == 32)
+			{
+				if (!_spaceWatch.IsRunning) _spaceWatch.Start();
+				else _spaceWatch.Restart();
+			}
+
+
 			// 상단바 및 버튼 보이게 하기
 			if (_inputKey == 27)
 			{
@@ -192,7 +210,8 @@ namespace SpecialCampaignSkillCoolDown
 				{
 					LBHookState.ForeColor = Color.Blue;
 					_hookState = true;
-					if (_watch.IsRunning) { _watch.Stop(); }
+					if (_ctrlWatch.IsRunning) { _ctrlWatch.Reset(); }
+					if (_spaceWatch.IsRunning) { _spaceWatch.Reset(); }
 				}
 			}
 
@@ -202,32 +221,36 @@ namespace SpecialCampaignSkillCoolDown
 				return;
 			}
 
-			// ctrl 인식
-			else if (_inputKey == 162)
+			// ctrl 인식 해제
+			else if (_ctrlWatch.IsRunning && (_ctrlWatch.ElapsedMilliseconds >= 1000 || (_inputKey != 162 && _inputKey != 0 && _inputKey != 32)))
 			{
-				if (!_watch.IsRunning) _watch.Start();
-				else _watch.Restart();
+				if(_ctrlWatch.IsRunning)
+				{
+					_ctrlWatch.Reset();
+				}
+			}
+
+			// space 인식 해제
+			else if (_spaceWatch.IsRunning && (_spaceWatch.ElapsedMilliseconds >= 1000 || (_inputKey != 162 && _inputKey !=0 && _inputKey != 32)))
+			{
+				if (_spaceWatch.IsRunning)
+				{
+					_spaceWatch.Reset();
+				}
 			}
 
 			// 질풍가도
-			else if (data.galeRoadEnable && _watch.IsRunning && _watch.ElapsedMilliseconds < 1000 && _inputKey == 32)
+			else if (data.galeRoadEnable && 
+				((_ctrlWatch.IsRunning && _ctrlWatch.ElapsedMilliseconds < 1000 && _inputKey == 32) || 
+				(_spaceWatch.IsRunning && _spaceWatch.ElapsedMilliseconds < 1000 && _inputKey == 162)))
 			{
-				controllLeftSkillCoolDown(
-					new leftSkillCoolDownClass(
+				ControllLeftSkillCoolDown(
+					new LeftSkillCoolDownClass(
 						false,
 						"질풍가도",
 						data.galeRoadCoolDown * 1000,
 						data.galeRoadCoolDown * 1000));
-				_watch.Reset();
-			}
-
-			// ctrl 인식 해제
-			else if (_watch.IsRunning && (_watch.ElapsedMilliseconds >= 1000 || (_inputKey != 162 && _inputKey != 0)))
-			{
-				if(_watch.IsRunning)
-				{
-					_watch.Reset();
-				}
+				_ctrlWatch.Reset();
 			}
 
 			// 상단바 및 버튼 안보이게 하기
@@ -265,8 +288,8 @@ namespace SpecialCampaignSkillCoolDown
 				{
 					if (data.skillEnable[i] && data.intSkillBind[i] == _inputKey)
 					{
-						controllLeftSkillCoolDown(
-							new leftSkillCoolDownClass(
+						ControllLeftSkillCoolDown(
+							new LeftSkillCoolDownClass(
 								data.skillUnique[i],
 								data.skillName[i],
 								data.skillCoolDown[i] * 1000,
@@ -285,7 +308,7 @@ namespace SpecialCampaignSkillCoolDown
 		}
 	}
 
-	class leftSkillCoolDownClass
+	class LeftSkillCoolDownClass
 	{
 		public bool unique = false;
 		public string name = "";
@@ -293,8 +316,8 @@ namespace SpecialCampaignSkillCoolDown
 		public long duration = 0;   // ms, 1000ms == 1s
 		private Stopwatch Stopwatch = new Stopwatch();
 
-		private leftSkillCoolDownClass() { }
-		public leftSkillCoolDownClass(bool unique, string name, long coolDown, long duration)
+		private LeftSkillCoolDownClass() { }
+		public LeftSkillCoolDownClass(bool unique, string name, long coolDown, long duration)
 		{
 			this.unique = unique;
 			this.name = name;
@@ -303,7 +326,7 @@ namespace SpecialCampaignSkillCoolDown
 
 			Stopwatch.Start();
 		}
-		~leftSkillCoolDownClass()
+		~LeftSkillCoolDownClass()
 		{
 			Stopwatch.Stop();
 		}

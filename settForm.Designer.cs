@@ -1136,8 +1136,8 @@
 			this.Name = "settForm";
 			this.Text = "settting";
 			this.TopMost = true;
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.settForm_FormClosing);
-			this.Load += new System.EventHandler(this.settting_Load);
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettForm_FormClosing);
+			this.Load += new System.EventHandler(this.Settting_Load);
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillCoolDown0)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillDuration0)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillDuration1)).EndInit();
