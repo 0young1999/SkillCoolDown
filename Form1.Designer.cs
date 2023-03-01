@@ -80,7 +80,7 @@
 			// 
 			// InPutKeyControll
 			// 
-			this.InPutKeyControll.Interval = 50;
+			this.InPutKeyControll.Interval = 5;
 			this.InPutKeyControll.Tick += new System.EventHandler(this.InPutKeyControll_Tick);
 			// 
 			// BTClear
