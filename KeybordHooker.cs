@@ -21,11 +21,6 @@ namespace SpecialCampaignSkillCoolDown
 		}
 		private KeybordHooker() { }
 
-		// input key
-		private static int _inputKey = 0;
-		public int GetInputKey() { return _inputKey; }
-		public void SetInputKey(int key) { _inputKey = key; }
-
 		// hook state
 		private static bool _hookState = false;
 		public bool GetHookState () { return _hookState; }
@@ -60,7 +55,7 @@ namespace SpecialCampaignSkillCoolDown
 
 		public void SetHook()
 		{
-			_hookState = true;
+			_hookState = false;
 			IntPtr hInstance = LoadLibrary("User32");
 			_hhook = SetWindowsHookEx(13, _proc, hInstance, 0);
 		}
@@ -68,19 +63,31 @@ namespace SpecialCampaignSkillCoolDown
 
 		public void UnHook()
 		{
-			_hookState = false;
+			_hookState = true;
 			UnhookWindowsHookEx(_hhook);
 		}
 
 		public static IntPtr HookProc(int code, IntPtr wParam, IntPtr lParam)
 		{
-			if (code >= 0 && wParam == (IntPtr)0x100)
-			{
-				int key = Marshal.ReadInt32(lParam);
+			UpdataKeybordHook(Marshal.ReadInt32(lParam), wParam);
 
-				_inputKey = key;
-			}
 			return CallNextHookEx(_hhook, code, (int)wParam, lParam);
+		}
+
+		// event
+		public static EventHandler<KeybordHookEventArg> UpdataKeybordHookEvent;
+		public class KeybordHookEventArg : EventArgs
+		{
+			public int _keyCode;
+			public IntPtr _lParam;
+		}
+		public static void UpdataKeybordHook(int keyCode, IntPtr intPtr)
+		{
+			UpdataKeybordHookEvent.Invoke(_instance, new KeybordHookEventArg()
+			{
+				_keyCode = keyCode,
+				_lParam = intPtr,
+			});
 		}
 	}
 }

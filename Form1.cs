@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Runtime.Remoting.Messaging;
 using System.Windows.Forms;
 
 namespace SpecialCampaignSkillCoolDown
@@ -11,11 +12,12 @@ namespace SpecialCampaignSkillCoolDown
 		// keybord hook
 		private static KeybordHooker _hooker = KeybordHooker.GetKeybordHooker();
 
-		// ctrl key stop watch
-		private static Stopwatch _ctrlWatch = new Stopwatch();
+		// ctrl space state
+		private bool _ctrlState = false;
+		private bool _spaceState = false;
 
-		// space key stop watch
-		private static Stopwatch _spaceWatch = new Stopwatch();
+		// game mode state
+		private bool _gameModeState = false;
 
 		// 쿨타임 돌고 있는 스킬들
 		private static List<LeftSkillCoolDownClass> _leftSkillCoolDown = new List<LeftSkillCoolDownClass>();
@@ -31,8 +33,6 @@ namespace SpecialCampaignSkillCoolDown
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			InPutKeyControll.Enabled = true;
-
 			if (!data.ReadSettingData())
 			{
 				data.SaveSettingData();
@@ -41,11 +41,12 @@ namespace SpecialCampaignSkillCoolDown
 			LBHookState.ForeColor = Color.Blue;
 
 			_hooker.SetHook();
+
+			KeybordHooker.UpdataKeybordHookEvent += new EventHandler<KeybordHooker.KeybordHookEventArg>(UpdateKey);
 		}
 
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			InPutKeyControll.Enabled = false;
 			_hooker.UnHook();
 		}
 
@@ -56,6 +57,7 @@ namespace SpecialCampaignSkillCoolDown
 			BTGameMode.Visible = false;
 			BTSetting.Visible = false;
 			BTClear.Visible = false;
+			_gameModeState = true;
 		}
 
 		private void BTSetting_Click(object sender, EventArgs e)
@@ -114,142 +116,111 @@ namespace SpecialCampaignSkillCoolDown
 			ControllLeftSkillCoolDown(null);
 		}
 
-		private void InPutKeyControll_Tick(object sender, EventArgs e)
+		private void BTClear_Click(object sender, EventArgs e)
 		{
-			int inputKey = _hooker.GetInputKey();
-			bool hookState = _hooker.GetHookState();
+			_leftSkillCoolDown.Clear();
+			LBCoolDown.Items.Clear();
+		}
 
-			// ctrl 인식
-			if (inputKey == 162)
+		private void UpdateKey(object sender, KeybordHooker.KeybordHookEventArg e)
+		{
+			// ctrl && space
+			if (e._keyCode == 162) Invoke((MethodInvoker)delegate { _ctrlState = e._lParam == (IntPtr)0x100 ? true : false; });
+			if (e._keyCode == 32) Invoke((MethodInvoker)delegate { _spaceState = e._lParam == (IntPtr)0x100 ? true : false; });
+
+			// 훅 장금
+			if (e._lParam == (IntPtr)0x101 && e._keyCode == data.intHookPause)
 			{
-				if (!_ctrlWatch.IsRunning) _ctrlWatch.Start();
-				else _ctrlWatch.Restart();
+				_hooker.SetHookState(!_hooker.GetHookState());
+				LBHookState.Invoke((MethodInvoker)delegate { LBHookState.ForeColor = _hooker.GetHookState() ? Color.Red : Color.Blue; });
 			}
-
-			// space 인식
-			else if (inputKey == 32)
-			{
-				if (!_spaceWatch.IsRunning) _spaceWatch.Start();
-				else _spaceWatch.Restart();
-			}
-
-
-			// 상단바 및 버튼 보이게 하기
-			if (inputKey == 27)
-			{
-				this.FormBorderStyle = FormBorderStyle.FixedSingle;
-				BTGameMode.Visible = true;
-				BTSetting.Visible = true;
-				BTClear.Visible = true;
-			}
-
-			// 훅 잠금
-			else if (inputKey == data.intHookPause)
-			{
-				if (hookState)
-				{
-					LBHookState.ForeColor = Color.Red;
-					_hooker.SetHookState(false);
-				}
-				else
-				{
-					LBHookState.ForeColor = Color.Blue;
-					_hooker.SetHookState(true);
-					if (_ctrlWatch.IsRunning) { _ctrlWatch.Reset(); }
-					if (_spaceWatch.IsRunning) { _spaceWatch.Reset(); }
-				}
-			}
-
-			// 훅 잠김 상태
-			else if (!hookState)
+			if (_hooker.GetHookState())
 			{
 				return;
 			}
-
-			// ctrl 인식 해제
-			else if (_ctrlWatch.IsRunning && (_ctrlWatch.ElapsedMilliseconds >= 1000 || (inputKey != 162 && inputKey != 0 && inputKey != 32)))
-			{
-				if (_ctrlWatch.IsRunning)
-				{
-					_ctrlWatch.Reset();
-				}
-			}
-
-			// space 인식 해제
-			else if (_spaceWatch.IsRunning && (_spaceWatch.ElapsedMilliseconds >= 1000 || (inputKey != 162 && inputKey != 0 && inputKey != 32)))
-			{
-				if (_spaceWatch.IsRunning)
-				{
-					_spaceWatch.Reset();
-				}
-			}
-
+			
 			// 질풍가도
-			else if (data.galeRoadEnable &&
-				((_ctrlWatch.IsRunning && _ctrlWatch.ElapsedMilliseconds < 1000 && inputKey == 32) ||
-				(_spaceWatch.IsRunning && _spaceWatch.ElapsedMilliseconds < 1000 && inputKey == 162)))
+			if (_spaceState && _ctrlState)
 			{
-				ControllLeftSkillCoolDown(
+				Invoke((MethodInvoker)delegate
+				{
+					ControllLeftSkillCoolDown(
 					new LeftSkillCoolDownClass(
 						false,
 						"질풍가도",
 						data.galeRoadCoolDown * 1000,
 						data.galeRoadCoolDown * 1000));
-				_ctrlWatch.Reset();
+				});
+				return;
 			}
 
-			// 상단바 및 버튼 안보이게 하기
-			else if (inputKey == data.intGameMode)
+			if (e._lParam == (IntPtr)0x101)
 			{
-				this.FormBorderStyle = FormBorderStyle.None;
-				BTGameMode.Visible = false;
-				BTSetting.Visible = false;
-				BTClear.Visible = false;
-			}
-
-			// 마지막 스킬 삭제
-			else if (inputKey == data.intDelete && _leftSkillCoolDown.Count > 0)
-			{
-				lock (_leftSkillCoolDownLock)
+				// 게임모드
+				if (e._keyCode == data.intGameMode)
 				{
-					LBCoolDown.Items.RemoveAt(_leftSkillCoolDown.Count - 1);
-					_leftSkillCoolDown.RemoveAt(_leftSkillCoolDown.Count - 1);
-				}
-			}
-
-			// 맵 로딩 보정
-			else if (inputKey == data.intCorrection)
-			{
-				lock (_leftSkillCoolDownLock)
-				{
-					for (int i = 0; i < _leftSkillCoolDown.Count; i++)
-						_leftSkillCoolDown[i].coolDown += 10000;
-				}
-			}
-
-			else if (inputKey != 0)
-			{
-				for (int i = 0; i < 10; i++)
-				{
-					if (data.skillEnable[i] && data.intSkillBind[i] == inputKey)
+					Invoke((MethodInvoker)delegate
 					{
-						ControllLeftSkillCoolDown(
-							new LeftSkillCoolDownClass(
-								data.skillUnique[i],
-								data.skillName[i],
-								data.skillCoolDown[i] * 1000,
-								data.skillDuration[i] * 1000));
-					}
+						if (_gameModeState)
+						{
+							FormBorderStyle = FormBorderStyle.FixedSingle;
+							BTGameMode.Visible = true;
+							BTSetting.Visible = true;
+							BTClear.Visible = true;
+						}
+						else
+						{
+							FormBorderStyle = FormBorderStyle.None;
+							BTGameMode.Visible = false;
+							BTSetting.Visible = false;
+							BTClear.Visible = false;
+						}
+						_gameModeState = !_gameModeState;
+					});
+				}
+				// 마지막 스킬 삭제
+				else if (e._keyCode == data.intDelete)
+				{
+					Invoke((MethodInvoker)delegate
+					{
+						lock (_leftSkillCoolDownLock)
+						{
+							LBCoolDown.Items.RemoveAt(_leftSkillCoolDown.Count - 1);
+							_leftSkillCoolDown.RemoveAt(_leftSkillCoolDown.Count - 1);
+						}
+					});
+				}
+				// 맵 로딩 보정
+				else if (e._keyCode == data.intCorrection)
+				{
+					Invoke((MethodInvoker)delegate
+					{
+						lock (_leftSkillCoolDownLock)
+						{
+							for (int i = 0; i < _leftSkillCoolDown.Count; i++)
+								_leftSkillCoolDown[i].coolDown += 20000;
+						}
+					});
+				}
+				else if (e._keyCode != 0)
+				{
+					Invoke((MethodInvoker)delegate
+					{
+						for (int i = 0; i < 10; i++)
+						{
+							if (data.skillEnable[i] && data.intSkillBind[i] == e._keyCode)
+							{
+								ControllLeftSkillCoolDown(
+									new LeftSkillCoolDownClass(
+										data.skillUnique[i],
+										data.skillName[i],
+										data.skillCoolDown[i] * 1000,
+										data.skillDuration[i] * 1000));
+							}
+						}
+					});
 				}
 			}
-
-			_hooker.SetInputKey(0);
-		}
-
-		private void BTClear_Click(object sender, EventArgs e)
-		{
-			_leftSkillCoolDown.Clear();
-			LBCoolDown.Items.Clear();
 		}
 	}
 

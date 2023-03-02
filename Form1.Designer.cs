@@ -33,7 +33,6 @@
 			this.BTSetting = new System.Windows.Forms.Button();
 			this.TimerSkillCoolDown = new System.Windows.Forms.Timer(this.components);
 			this.LBCoolDown = new System.Windows.Forms.ListBox();
-			this.InPutKeyControll = new System.Windows.Forms.Timer(this.components);
 			this.BTClear = new System.Windows.Forms.Button();
 			this.LBHookState = new System.Windows.Forms.Label();
 			this.SuspendLayout();
@@ -77,11 +76,6 @@
 			this.LBCoolDown.Size = new System.Drawing.Size(594, 400);
 			this.LBCoolDown.TabIndex = 3;
 			this.LBCoolDown.UseWaitCursor = true;
-			// 
-			// InPutKeyControll
-			// 
-			this.InPutKeyControll.Interval = 5;
-			this.InPutKeyControll.Tick += new System.EventHandler(this.InPutKeyControll_Tick);
 			// 
 			// BTClear
 			// 
@@ -139,7 +133,6 @@
 		private System.Windows.Forms.Button BTSetting;
 		private System.Windows.Forms.Timer TimerSkillCoolDown;
 		private System.Windows.Forms.ListBox LBCoolDown;
-		private System.Windows.Forms.Timer InPutKeyControll;
 		private System.Windows.Forms.Button BTClear;
 		private System.Windows.Forms.Label LBHookState;
 	}
