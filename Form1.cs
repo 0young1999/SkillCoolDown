@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Runtime.Remoting.Messaging;
 using System.Windows.Forms;
 
 namespace SpecialCampaignSkillCoolDown
@@ -10,7 +9,7 @@ namespace SpecialCampaignSkillCoolDown
 	public partial class Form1 : Form
 	{
 		// keybord hook
-		private static KeybordHooker _hooker = KeybordHooker.GetKeybordHooker();
+		private static keyboardHooker _hooker = keyboardHooker.GetKeyboardHooker();
 
 		// ctrl space state
 		private bool _ctrlState = false;
@@ -40,9 +39,14 @@ namespace SpecialCampaignSkillCoolDown
 
 			LBHookState.ForeColor = Color.Blue;
 
+			List<int> list = new List<int>();
+			list.Add(data.intDelete);
+			list.Add(data.intGameMode);
+			list.Add(data.intCorrection);
+			_hooker.SetBlockKey(list);
 			_hooker.SetHook();
 
-			KeybordHooker.UpdataKeybordHookEvent += new EventHandler<KeybordHooker.KeybordHookEventArg>(UpdateKey);
+			keyboardHooker.UpdataKeyboardHookEvent += new EventHandler<keyboardHooker.KeyboardHookEventArg>(UpdateKey);
 		}
 
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -63,7 +67,14 @@ namespace SpecialCampaignSkillCoolDown
 		private void BTSetting_Click(object sender, EventArgs e)
 		{
 			_hooker.UnHook();
+
 			(new settForm()).ShowDialog();
+
+			List<int> list = new List<int>();
+			list.Add(data.intDelete);
+			list.Add(data.intGameMode);
+			list.Add(data.intCorrection);
+			_hooker.SetBlockKey(list);
 			_hooker.SetHook();
 		}
 
@@ -122,7 +133,7 @@ namespace SpecialCampaignSkillCoolDown
 			LBCoolDown.Items.Clear();
 		}
 
-		private void UpdateKey(object sender, KeybordHooker.KeybordHookEventArg e)
+		private void UpdateKey(object sender, keyboardHooker.KeyboardHookEventArg e)
 		{
 			// ctrl && space
 			if (e._keyCode == 162) Invoke((MethodInvoker)delegate { _ctrlState = e._lParam == (IntPtr)0x100 ? true : false; });
@@ -138,9 +149,11 @@ namespace SpecialCampaignSkillCoolDown
 			{
 				return;
 			}
-			
+
+
+
 			// 질풍가도
-			if (_spaceState && _ctrlState)
+			if (_spaceState && _ctrlState && data.galeRoadEnable)
 			{
 				Invoke((MethodInvoker)delegate
 				{
@@ -185,8 +198,11 @@ namespace SpecialCampaignSkillCoolDown
 					{
 						lock (_leftSkillCoolDownLock)
 						{
-							LBCoolDown.Items.RemoveAt(_leftSkillCoolDown.Count - 1);
-							_leftSkillCoolDown.RemoveAt(_leftSkillCoolDown.Count - 1);
+							if (_leftSkillCoolDown.Count > 0)
+							{
+								LBCoolDown.Items.RemoveAt(_leftSkillCoolDown.Count - 1);
+								_leftSkillCoolDown.RemoveAt(_leftSkillCoolDown.Count - 1);
+							}
 						}
 					});
 				}

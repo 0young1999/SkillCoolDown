@@ -44,7 +44,7 @@ namespace SpecialCampaignSkillCoolDown
 		public bool galeRoadEnable = false;         // 질풍가도 사용여부
 		public long galeRoadCoolDown = 5;           // 질풍가도 쿨타임
 		public int intCorrection = 121;             // 맵 로딩 보정 int
-		public string stringCorrection = "F10";		// 맵 로딩 보정 string
+		public string stringCorrection = "F10";     // 맵 로딩 보정 string
 
 
 		public bool SaveSettingData()

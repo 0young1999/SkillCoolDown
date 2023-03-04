@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SpecialCampaignSkillCoolDown
@@ -44,7 +38,7 @@ namespace SpecialCampaignSkillCoolDown
 
 		private void Settting_Load(object sender, EventArgs e)
 		{
-			for(int i = 0; i < 10; i++)
+			for (int i = 0; i < 10; i++)
 			{
 				((CheckBox)Controls.Find("CBEnable" + i, true).First()).Checked = data.skillEnable[i];
 				((Label)Controls.Find("label" + i, true).First()).Text = data.stringSkillBInd[i];

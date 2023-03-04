@@ -1,30 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpecialCampaignSkillCoolDown
 {
-	internal class KeybordHooker
+	internal class keyboardHooker
 	{
-		private static KeybordHooker _instance;
-		public static KeybordHooker GetKeybordHooker()
+		private static keyboardHooker _instance;
+		public static keyboardHooker GetKeyboardHooker()
 		{
 			if (_instance == null)
 			{
-				_instance = new KeybordHooker();
+				_instance = new keyboardHooker();
 			}
 			return _instance;
 		}
-		private KeybordHooker() { }
+		private keyboardHooker() { }
 
 		// hook state
 		private static bool _hookState = false;
-		public bool GetHookState () { return _hookState; }
-		public void SetHookState (bool state) { _hookState = state; }
+		public bool GetHookState() { return _hookState; }
+		public void SetHookState(bool state) { _hookState = state; }
+
+		// 차단될 키
+		private static List<int> _blockKey = new List<int>();
+		public void SetBlockKey(List<int> list)
+		{
+			_blockKey = list;
+		}
 
 		[DllImport("user32.dll")]
 		static extern bool keybd_event(uint bVk, uint bScan, uint dwFlags, int dwExtraInfo);
@@ -69,21 +72,27 @@ namespace SpecialCampaignSkillCoolDown
 
 		public static IntPtr HookProc(int code, IntPtr wParam, IntPtr lParam)
 		{
-			UpdataKeybordHook(Marshal.ReadInt32(lParam), wParam);
+			UpdataKeyboardHook(Marshal.ReadInt32(lParam), wParam);
+
+			// key block
+			if (!_hookState && _blockKey.Contains(Marshal.ReadInt32(lParam)))
+			{
+				return (IntPtr)1;
+			}
 
 			return CallNextHookEx(_hhook, code, (int)wParam, lParam);
 		}
 
 		// event
-		public static EventHandler<KeybordHookEventArg> UpdataKeybordHookEvent;
-		public class KeybordHookEventArg : EventArgs
+		public static EventHandler<KeyboardHookEventArg> UpdataKeyboardHookEvent;
+		public class KeyboardHookEventArg : EventArgs
 		{
 			public int _keyCode;
 			public IntPtr _lParam;
 		}
-		public static void UpdataKeybordHook(int keyCode, IntPtr intPtr)
+		public static void UpdataKeyboardHook(int keyCode, IntPtr intPtr)
 		{
-			UpdataKeybordHookEvent.Invoke(_instance, new KeybordHookEventArg()
+			UpdataKeyboardHookEvent.Invoke(_instance, new KeyboardHookEventArg()
 			{
 				_keyCode = keyCode,
 				_lParam = intPtr,
