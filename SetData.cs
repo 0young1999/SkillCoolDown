@@ -203,7 +203,9 @@ namespace SpecialCampaignSkillCoolDown
 						skillCoolDown[i] = long.Parse(skillRoot.SelectSingleNode("CoolDown" + i).InnerText);
 						skillDuration[i] = long.Parse(skillRoot.SelectSingleNode("Duration" + i).InnerText);
 						skillUnique[i] = bool.Parse(skillRoot.SelectSingleNode("Unique" + i).InnerText);
-						tcpUsing[i] = bool.Parse(skillRoot.SelectSingleNode("TCPUsing" + i).InnerText);
+						XmlNode temp = skillRoot.SelectSingleNode("TCPUsing" + i);
+						if(temp == null) { continue; }
+						tcpUsing[i] = bool.Parse(temp.InnerText);
 					}
 					catch (NullReferenceException)
 					{
