@@ -135,11 +135,6 @@ namespace SpecialCampaignSkillCoolDown
 				{
 					lock (_leftSkillCoolDownLock)
 					{
-						if (_leftSkillCoolDown.Count > 0)
-						{
-							LBOthersCoolDown.Items.RemoveAt(_leftSkillCoolDown.Count - 1);
-							_leftSkillCoolDown.RemoveAt(_leftSkillCoolDown.Count - 1);
-						}
 						for (int i = 0; i < _leftSkillCoolDown.Count; i++)
 						{
 							if (_leftSkillCoolDown[i].player == e._player && _leftSkillCoolDown[i].name == e._name)
