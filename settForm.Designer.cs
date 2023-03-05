@@ -117,6 +117,23 @@
 			this.NUDGaleRoad = new System.Windows.Forms.NumericUpDown();
 			this.label20 = new System.Windows.Forms.Label();
 			this.BTCorrection = new System.Windows.Forms.Button();
+			this.label21 = new System.Windows.Forms.Label();
+			this.TBServerIp = new System.Windows.Forms.TextBox();
+			this.label22 = new System.Windows.Forms.Label();
+			this.NUDServerPort = new System.Windows.Forms.NumericUpDown();
+			this.label23 = new System.Windows.Forms.Label();
+			this.TBPlayerName = new System.Windows.Forms.TextBox();
+			this.label24 = new System.Windows.Forms.Label();
+			this.CBTCPUsing0 = new System.Windows.Forms.CheckBox();
+			this.CBTCPUsing1 = new System.Windows.Forms.CheckBox();
+			this.CBTCPUsing2 = new System.Windows.Forms.CheckBox();
+			this.CBTCPUsing3 = new System.Windows.Forms.CheckBox();
+			this.CBTCPUsing4 = new System.Windows.Forms.CheckBox();
+			this.CBTCPUsing5 = new System.Windows.Forms.CheckBox();
+			this.CBTCPUsing6 = new System.Windows.Forms.CheckBox();
+			this.CBTCPUsing7 = new System.Windows.Forms.CheckBox();
+			this.CBTCPUsing8 = new System.Windows.Forms.CheckBox();
+			this.CBTCPUsing9 = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillCoolDown0)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillDuration0)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillDuration1)).BeginInit();
@@ -138,6 +155,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillDuration9)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillCoolDown9)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDGaleRoad)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.NUDServerPort)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// BTBind0
@@ -1024,7 +1042,7 @@
 			this.label20.Name = "label20";
 			this.label20.Size = new System.Drawing.Size(107, 12);
 			this.label20.TabIndex = 87;
-			this.label20.Text = "맵 로딩 보정(10초)";
+			this.label20.Text = "맵 로딩 보정(20초)";
 			// 
 			// BTCorrection
 			// 
@@ -1036,11 +1054,180 @@
 			this.BTCorrection.UseVisualStyleBackColor = true;
 			this.BTCorrection.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BTCorrection_KeyUp);
 			// 
+			// label21
+			// 
+			this.label21.AutoSize = true;
+			this.label21.Location = new System.Drawing.Point(12, 415);
+			this.label21.Name = "label21";
+			this.label21.Size = new System.Drawing.Size(57, 12);
+			this.label21.TabIndex = 89;
+			this.label21.Text = "서버 주소";
+			// 
+			// TBServerIp
+			// 
+			this.TBServerIp.Location = new System.Drawing.Point(75, 412);
+			this.TBServerIp.Name = "TBServerIp";
+			this.TBServerIp.Size = new System.Drawing.Size(100, 21);
+			this.TBServerIp.TabIndex = 90;
+			// 
+			// label22
+			// 
+			this.label22.AutoSize = true;
+			this.label22.Location = new System.Drawing.Point(181, 415);
+			this.label22.Name = "label22";
+			this.label22.Size = new System.Drawing.Size(29, 12);
+			this.label22.TabIndex = 91;
+			this.label22.Text = "포트";
+			// 
+			// NUDServerPort
+			// 
+			this.NUDServerPort.Location = new System.Drawing.Point(216, 412);
+			this.NUDServerPort.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+			this.NUDServerPort.Name = "NUDServerPort";
+			this.NUDServerPort.Size = new System.Drawing.Size(120, 21);
+			this.NUDServerPort.TabIndex = 92;
+			// 
+			// label23
+			// 
+			this.label23.AutoSize = true;
+			this.label23.Location = new System.Drawing.Point(347, 415);
+			this.label23.Name = "label23";
+			this.label23.Size = new System.Drawing.Size(41, 12);
+			this.label23.TabIndex = 93;
+			this.label23.Text = "닉네임";
+			// 
+			// TBPlayerName
+			// 
+			this.TBPlayerName.Location = new System.Drawing.Point(395, 412);
+			this.TBPlayerName.Name = "TBPlayerName";
+			this.TBPlayerName.Size = new System.Drawing.Size(100, 21);
+			this.TBPlayerName.TabIndex = 94;
+			// 
+			// label24
+			// 
+			this.label24.AutoSize = true;
+			this.label24.Location = new System.Drawing.Point(633, 9);
+			this.label24.Name = "label24";
+			this.label24.Size = new System.Drawing.Size(57, 12);
+			this.label24.TabIndex = 95;
+			this.label24.Text = "서버 공유";
+			// 
+			// CBTCPUsing0
+			// 
+			this.CBTCPUsing0.AutoSize = true;
+			this.CBTCPUsing0.Location = new System.Drawing.Point(653, 32);
+			this.CBTCPUsing0.Name = "CBTCPUsing0";
+			this.CBTCPUsing0.Size = new System.Drawing.Size(15, 14);
+			this.CBTCPUsing0.TabIndex = 96;
+			this.CBTCPUsing0.UseVisualStyleBackColor = true;
+			// 
+			// CBTCPUsing1
+			// 
+			this.CBTCPUsing1.AutoSize = true;
+			this.CBTCPUsing1.Location = new System.Drawing.Point(653, 60);
+			this.CBTCPUsing1.Name = "CBTCPUsing1";
+			this.CBTCPUsing1.Size = new System.Drawing.Size(15, 14);
+			this.CBTCPUsing1.TabIndex = 97;
+			this.CBTCPUsing1.UseVisualStyleBackColor = true;
+			// 
+			// CBTCPUsing2
+			// 
+			this.CBTCPUsing2.AutoSize = true;
+			this.CBTCPUsing2.Location = new System.Drawing.Point(653, 90);
+			this.CBTCPUsing2.Name = "CBTCPUsing2";
+			this.CBTCPUsing2.Size = new System.Drawing.Size(15, 14);
+			this.CBTCPUsing2.TabIndex = 98;
+			this.CBTCPUsing2.UseVisualStyleBackColor = true;
+			// 
+			// CBTCPUsing3
+			// 
+			this.CBTCPUsing3.AutoSize = true;
+			this.CBTCPUsing3.Location = new System.Drawing.Point(653, 116);
+			this.CBTCPUsing3.Name = "CBTCPUsing3";
+			this.CBTCPUsing3.Size = new System.Drawing.Size(15, 14);
+			this.CBTCPUsing3.TabIndex = 99;
+			this.CBTCPUsing3.UseVisualStyleBackColor = true;
+			// 
+			// CBTCPUsing4
+			// 
+			this.CBTCPUsing4.AutoSize = true;
+			this.CBTCPUsing4.Location = new System.Drawing.Point(653, 145);
+			this.CBTCPUsing4.Name = "CBTCPUsing4";
+			this.CBTCPUsing4.Size = new System.Drawing.Size(15, 14);
+			this.CBTCPUsing4.TabIndex = 100;
+			this.CBTCPUsing4.UseVisualStyleBackColor = true;
+			// 
+			// CBTCPUsing5
+			// 
+			this.CBTCPUsing5.AutoSize = true;
+			this.CBTCPUsing5.Location = new System.Drawing.Point(653, 174);
+			this.CBTCPUsing5.Name = "CBTCPUsing5";
+			this.CBTCPUsing5.Size = new System.Drawing.Size(15, 14);
+			this.CBTCPUsing5.TabIndex = 101;
+			this.CBTCPUsing5.UseVisualStyleBackColor = true;
+			// 
+			// CBTCPUsing6
+			// 
+			this.CBTCPUsing6.AutoSize = true;
+			this.CBTCPUsing6.Location = new System.Drawing.Point(653, 204);
+			this.CBTCPUsing6.Name = "CBTCPUsing6";
+			this.CBTCPUsing6.Size = new System.Drawing.Size(15, 14);
+			this.CBTCPUsing6.TabIndex = 102;
+			this.CBTCPUsing6.UseVisualStyleBackColor = true;
+			// 
+			// CBTCPUsing7
+			// 
+			this.CBTCPUsing7.AutoSize = true;
+			this.CBTCPUsing7.Location = new System.Drawing.Point(653, 235);
+			this.CBTCPUsing7.Name = "CBTCPUsing7";
+			this.CBTCPUsing7.Size = new System.Drawing.Size(15, 14);
+			this.CBTCPUsing7.TabIndex = 103;
+			this.CBTCPUsing7.UseVisualStyleBackColor = true;
+			// 
+			// CBTCPUsing8
+			// 
+			this.CBTCPUsing8.AutoSize = true;
+			this.CBTCPUsing8.Location = new System.Drawing.Point(653, 263);
+			this.CBTCPUsing8.Name = "CBTCPUsing8";
+			this.CBTCPUsing8.Size = new System.Drawing.Size(15, 14);
+			this.CBTCPUsing8.TabIndex = 104;
+			this.CBTCPUsing8.UseVisualStyleBackColor = true;
+			// 
+			// CBTCPUsing9
+			// 
+			this.CBTCPUsing9.AutoSize = true;
+			this.CBTCPUsing9.Location = new System.Drawing.Point(653, 291);
+			this.CBTCPUsing9.Name = "CBTCPUsing9";
+			this.CBTCPUsing9.Size = new System.Drawing.Size(15, 14);
+			this.CBTCPUsing9.TabIndex = 105;
+			this.CBTCPUsing9.UseVisualStyleBackColor = true;
+			// 
 			// settForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(636, 409);
+			this.ClientSize = new System.Drawing.Size(716, 467);
+			this.Controls.Add(this.CBTCPUsing9);
+			this.Controls.Add(this.CBTCPUsing8);
+			this.Controls.Add(this.CBTCPUsing7);
+			this.Controls.Add(this.CBTCPUsing6);
+			this.Controls.Add(this.CBTCPUsing5);
+			this.Controls.Add(this.CBTCPUsing4);
+			this.Controls.Add(this.CBTCPUsing3);
+			this.Controls.Add(this.CBTCPUsing2);
+			this.Controls.Add(this.CBTCPUsing1);
+			this.Controls.Add(this.CBTCPUsing0);
+			this.Controls.Add(this.label24);
+			this.Controls.Add(this.TBPlayerName);
+			this.Controls.Add(this.label23);
+			this.Controls.Add(this.NUDServerPort);
+			this.Controls.Add(this.label22);
+			this.Controls.Add(this.TBServerIp);
+			this.Controls.Add(this.label21);
 			this.Controls.Add(this.BTCorrection);
 			this.Controls.Add(this.label20);
 			this.Controls.Add(this.NUDGaleRoad);
@@ -1159,6 +1346,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillDuration9)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDSkillCoolDown9)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.NUDGaleRoad)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.NUDServerPort)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -1255,5 +1443,22 @@
 		private System.Windows.Forms.NumericUpDown NUDGaleRoad;
 		private System.Windows.Forms.Label label20;
 		private System.Windows.Forms.Button BTCorrection;
+		private System.Windows.Forms.Label label21;
+		private System.Windows.Forms.TextBox TBServerIp;
+		private System.Windows.Forms.Label label22;
+		private System.Windows.Forms.NumericUpDown NUDServerPort;
+		private System.Windows.Forms.Label label23;
+		private System.Windows.Forms.TextBox TBPlayerName;
+		private System.Windows.Forms.Label label24;
+		private System.Windows.Forms.CheckBox CBTCPUsing0;
+		private System.Windows.Forms.CheckBox CBTCPUsing1;
+		private System.Windows.Forms.CheckBox CBTCPUsing2;
+		private System.Windows.Forms.CheckBox CBTCPUsing3;
+		private System.Windows.Forms.CheckBox CBTCPUsing4;
+		private System.Windows.Forms.CheckBox CBTCPUsing5;
+		private System.Windows.Forms.CheckBox CBTCPUsing6;
+		private System.Windows.Forms.CheckBox CBTCPUsing7;
+		private System.Windows.Forms.CheckBox CBTCPUsing8;
+		private System.Windows.Forms.CheckBox CBTCPUsing9;
 	}
 }

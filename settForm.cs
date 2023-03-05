@@ -22,10 +22,15 @@ namespace SpecialCampaignSkillCoolDown
 				data.skillCoolDown[i] = (long)((NumericUpDown)Controls.Find("NUDSkillCoolDown" + i, true).First()).Value;
 				data.skillDuration[i] = (long)((NumericUpDown)Controls.Find("NUDSkillDuration" + i, true).First()).Value;
 				data.skillUnique[i] = ((CheckBox)Controls.Find("CBUniqueSkill" + i, true).First()).Checked;
+				data.tcpUsing[i] = ((CheckBox)Controls.Find("CBTCPUsing" + i, true).First()).Checked;
 			}
 
 			data.galeRoadEnable = CBGaleRoad.Checked;
 			data.galeRoadCoolDown = (long)NUDGaleRoad.Value;
+
+			data.playerName = TBPlayerName.Text;
+			data.ServerIp = TBServerIp.Text;
+			data.ServerPort = (int)NUDServerPort.Value;
 
 			data.SaveSettingData();
 		}
@@ -46,6 +51,7 @@ namespace SpecialCampaignSkillCoolDown
 				((NumericUpDown)Controls.Find("NUDSkillCoolDown" + i, true).First()).Value = data.skillCoolDown[i];
 				((NumericUpDown)Controls.Find("NUDSkillDuration" + i, true).First()).Value = data.skillDuration[i];
 				((CheckBox)Controls.Find("CBUniqueSkill" + i, true).First()).Checked = data.skillUnique[i];
+				((CheckBox)Controls.Find("CBTCPUsing" + i, true).First()).Checked = data.tcpUsing[i];
 			}
 
 			CBGaleRoad.Checked = data.galeRoadEnable;
@@ -54,6 +60,9 @@ namespace SpecialCampaignSkillCoolDown
 			BTGameModeBind.Text = data.stringGameMode;
 			BTDelete.Text = data.stringDelete;
 			BTCorrection.Text = data.stringCorrection;
+			TBPlayerName.Text = data.playerName;
+			NUDServerPort.Value = data.ServerPort;
+			TBServerIp.Text = data.ServerIp;
 		}
 
 		private void KeyBind(int number, KeyEventArgs e)

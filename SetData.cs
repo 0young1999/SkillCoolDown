@@ -16,16 +16,17 @@ namespace SpecialCampaignSkillCoolDown
 				skillCoolDown[i] = 0;
 				skillDuration[i] = 0;
 				skillUnique[i] = false;
+				tcpUsing[i] = false;
 			}
 		}
-		public static SetData instance;
+		public static SetData _instance;
 		public static SetData GetInstance()
 		{
-			if (instance == null)
+			if (_instance == null)
 			{
-				instance = new SetData();
+				_instance = new SetData();
 			}
-			return instance;
+			return _instance;
 		}
 
 		public bool[] skillEnable = new bool[10];   // 사용여부
@@ -35,6 +36,7 @@ namespace SpecialCampaignSkillCoolDown
 		public long[] skillCoolDown = new long[10]; // 쿨다운
 		public long[] skillDuration = new long[10]; // 스킬 작동시간
 		public bool[] skillUnique = new bool[10];   // 고유스킬여부
+		public bool[] tcpUsing = new bool[10];		// 서버 전송 여부
 		public int intHookPause = 13;               // 후킹 일시정지 키 int
 		public string stringHookPause = "Return";   // 후킹 일시정지 키 string
 		public int intGameMode = 123;               // 게임모드 int
@@ -45,6 +47,9 @@ namespace SpecialCampaignSkillCoolDown
 		public long galeRoadCoolDown = 5;           // 질풍가도 쿨타임
 		public int intCorrection = 121;             // 맵 로딩 보정 int
 		public string stringCorrection = "F10";     // 맵 로딩 보정 string
+		public string ServerIp = "127.0.0.1";       // server ip
+		public int ServerPort = 8000;               // server port
+		public string playerName = "임시";            // server player name
 
 
 		public bool SaveSettingData()
@@ -88,6 +93,10 @@ namespace SpecialCampaignSkillCoolDown
 					XmlNode xmlSkillUnique = xml.CreateElement("Unique" + i);
 					xmlSkillUnique.InnerText = skillUnique[i].ToString();
 					skillRoot.AppendChild(xmlSkillUnique);
+
+					XmlNode xmlTCPUsing = xml.CreateElement("TCPUsing" + i);
+					xmlTCPUsing.InnerXml = tcpUsing[i].ToString();
+					skillRoot.AppendChild(xmlTCPUsing);
 				}
 
 				XmlNode xmlDoubleKeySkill = xml.CreateElement("DoubleKeySkill");
@@ -150,6 +159,19 @@ namespace SpecialCampaignSkillCoolDown
 
 				root.AppendChild(xmlCorrection);
 
+				XmlNode xmlServer = xml.CreateElement("SERVER");
+				XmlNode xmlServerIp = xml.CreateElement("IP");
+				xmlServerIp.InnerText = ServerIp;
+				xmlServer.AppendChild(xmlServerIp);
+				XmlNode xmlServerPort = xml.CreateElement("PORT");
+				xmlServerPort.InnerText = ServerPort.ToString();
+				xmlServer.AppendChild(xmlServerPort);
+				XmlNode xmlServerPlayerName = xml.CreateElement("PlayerName");
+				xmlServerPlayerName.InnerText = playerName;
+				xmlServer.AppendChild(xmlServerPlayerName);
+
+				root.AppendChild(xmlServer);
+
 				xml.Save("skill.xml");
 			}
 			catch
@@ -181,6 +203,7 @@ namespace SpecialCampaignSkillCoolDown
 						skillCoolDown[i] = long.Parse(skillRoot.SelectSingleNode("CoolDown" + i).InnerText);
 						skillDuration[i] = long.Parse(skillRoot.SelectSingleNode("Duration" + i).InnerText);
 						skillUnique[i] = bool.Parse(skillRoot.SelectSingleNode("Unique" + i).InnerText);
+						tcpUsing[i] = bool.Parse(skillRoot.SelectSingleNode("TCPUsing" + i).InnerText);
 					}
 					catch (NullReferenceException)
 					{
@@ -211,6 +234,11 @@ namespace SpecialCampaignSkillCoolDown
 				XmlNode xmlCorrection = root.SelectSingleNode("Correction");
 				intCorrection = int.Parse(xmlCorrection.SelectSingleNode("int").InnerText);
 				stringCorrection = xmlCorrection.SelectSingleNode("string").InnerText;
+
+				XmlNode xmlServer = root.SelectSingleNode("SERVER");
+				ServerIp = xmlServer.SelectSingleNode("IP").InnerText;
+				ServerPort = int.Parse(xmlServer.SelectSingleNode("PORT").InnerText);
+				playerName = xmlServer.SelectSingleNode("PlayerName").InnerText;
 			}
 			catch (Exception) { return false; }
 			return true;

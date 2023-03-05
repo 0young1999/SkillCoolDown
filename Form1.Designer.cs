@@ -35,6 +35,7 @@
 			this.LBCoolDown = new System.Windows.Forms.ListBox();
 			this.BTClear = new System.Windows.Forms.Button();
 			this.LBHookState = new System.Windows.Forms.Label();
+			this.BTServerConn = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// BTGameMode
@@ -79,7 +80,7 @@
 			// 
 			// BTClear
 			// 
-			this.BTClear.Location = new System.Drawing.Point(13, 72);
+			this.BTClear.Location = new System.Drawing.Point(12, 72);
 			this.BTClear.Name = "BTClear";
 			this.BTClear.Size = new System.Drawing.Size(75, 23);
 			this.BTClear.TabIndex = 4;
@@ -99,12 +100,23 @@
 			this.LBHookState.TabIndex = 5;
 			this.LBHookState.Text = "Skill Cool Down";
 			// 
+			// BTServerConn
+			// 
+			this.BTServerConn.Location = new System.Drawing.Point(12, 101);
+			this.BTServerConn.Name = "BTServerConn";
+			this.BTServerConn.Size = new System.Drawing.Size(75, 23);
+			this.BTServerConn.TabIndex = 7;
+			this.BTServerConn.Text = "서버연결";
+			this.BTServerConn.UseVisualStyleBackColor = true;
+			this.BTServerConn.Click += new System.EventHandler(this.BTServerConn_Click);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.Window;
 			this.ClientSize = new System.Drawing.Size(699, 468);
+			this.Controls.Add(this.BTServerConn);
 			this.Controls.Add(this.LBHookState);
 			this.Controls.Add(this.BTClear);
 			this.Controls.Add(this.LBCoolDown);
@@ -118,6 +130,7 @@
 			this.Name = "Form1";
 			this.ShowIcon = false;
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "SkillCoolDown";
 			this.TopMost = true;
 			this.TransparencyKey = System.Drawing.Color.Transparent;
@@ -135,6 +148,7 @@
 		private System.Windows.Forms.ListBox LBCoolDown;
 		private System.Windows.Forms.Button BTClear;
 		private System.Windows.Forms.Label LBHookState;
+		internal System.Windows.Forms.Button BTServerConn;
 	}
 }
 
