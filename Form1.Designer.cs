@@ -29,7 +29,6 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			this.BTGameMode = new System.Windows.Forms.Button();
 			this.BTSetting = new System.Windows.Forms.Button();
 			this.TimerSkillCoolDown = new System.Windows.Forms.Timer(this.components);
 			this.LBCoolDown = new System.Windows.Forms.ListBox();
@@ -38,19 +37,9 @@
 			this.BTServerConn = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
-			// BTGameMode
-			// 
-			this.BTGameMode.Location = new System.Drawing.Point(12, 12);
-			this.BTGameMode.Name = "BTGameMode";
-			this.BTGameMode.Size = new System.Drawing.Size(75, 23);
-			this.BTGameMode.TabIndex = 1;
-			this.BTGameMode.Text = "게임 모드";
-			this.BTGameMode.UseVisualStyleBackColor = true;
-			this.BTGameMode.Click += new System.EventHandler(this.BTGameMode_Click);
-			// 
 			// BTSetting
 			// 
-			this.BTSetting.Location = new System.Drawing.Point(12, 42);
+			this.BTSetting.Location = new System.Drawing.Point(12, 13);
 			this.BTSetting.Name = "BTSetting";
 			this.BTSetting.Size = new System.Drawing.Size(75, 23);
 			this.BTSetting.TabIndex = 2;
@@ -80,7 +69,7 @@
 			// 
 			// BTClear
 			// 
-			this.BTClear.Location = new System.Drawing.Point(12, 72);
+			this.BTClear.Location = new System.Drawing.Point(12, 43);
 			this.BTClear.Name = "BTClear";
 			this.BTClear.Size = new System.Drawing.Size(75, 23);
 			this.BTClear.TabIndex = 4;
@@ -102,7 +91,7 @@
 			// 
 			// BTServerConn
 			// 
-			this.BTServerConn.Location = new System.Drawing.Point(12, 101);
+			this.BTServerConn.Location = new System.Drawing.Point(12, 72);
 			this.BTServerConn.Name = "BTServerConn";
 			this.BTServerConn.Size = new System.Drawing.Size(75, 23);
 			this.BTServerConn.TabIndex = 7;
@@ -121,7 +110,6 @@
 			this.Controls.Add(this.BTClear);
 			this.Controls.Add(this.LBCoolDown);
 			this.Controls.Add(this.BTSetting);
-			this.Controls.Add(this.BTGameMode);
 			this.Font = new System.Drawing.Font("굴림", 9F);
 			this.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -142,7 +130,6 @@
 		}
 
 		#endregion
-		private System.Windows.Forms.Button BTGameMode;
 		private System.Windows.Forms.Button BTSetting;
 		private System.Windows.Forms.Timer TimerSkillCoolDown;
 		private System.Windows.Forms.ListBox LBCoolDown;

@@ -35,6 +35,7 @@ namespace SpecialCampaignSkillCoolDown
 			keyboardHooker.UpdataKeyboardHookEvent += new EventHandler<keyboardHooker.KeyboardHookEventArg>(UpdateKey);
 			TCPClient._ReqeustSkillNewEvent += new EventHandler<TCPClient.ReqeustSkillNewEventArg>(UpdateSkill);
 			_form1.Invoke((MethodInvoker)delegate { _form1.BTServerConn.Enabled = false; });
+			_gameModeState = _form1.GetGameModeState();
 			_tcp.Open();
 		}
 

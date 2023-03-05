@@ -17,6 +17,7 @@ namespace SpecialCampaignSkillCoolDown
 
 		// game mode state
 		private bool _gameModeState = false;
+		public bool GetGameModeState() { return _gameModeState; }
 
 		// 쿨타임 돌고 있는 스킬들
 		private static List<LeftSkillCoolDownClass> _leftSkillCoolDown = new List<LeftSkillCoolDownClass>();
@@ -62,17 +63,6 @@ namespace SpecialCampaignSkillCoolDown
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			_hooker.UnHook();
-		}
-
-		private void BTGameMode_Click(object sender, EventArgs e)
-		{
-			// 상단바 및 버튼 안보이게 하기
-			this.FormBorderStyle = FormBorderStyle.None;
-			BTGameMode.Visible = false;
-			BTSetting.Visible = false;
-			BTClear.Visible = false;
-			BTServerConn.Visible = false;
-			_gameModeState = true;
 		}
 
 		private void BTSetting_Click(object sender, EventArgs e)
@@ -197,7 +187,6 @@ namespace SpecialCampaignSkillCoolDown
 						if (_gameModeState)
 						{
 							FormBorderStyle = FormBorderStyle.FixedSingle;
-							BTGameMode.Visible = true;
 							BTSetting.Visible = true;
 							BTClear.Visible = true;
 							BTServerConn.Visible = true;
@@ -205,7 +194,6 @@ namespace SpecialCampaignSkillCoolDown
 						else
 						{
 							FormBorderStyle = FormBorderStyle.None;
-							BTGameMode.Visible = false;
 							BTSetting.Visible = false;
 							BTClear.Visible = false;
 							BTServerConn.Visible = false;
