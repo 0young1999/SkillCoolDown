@@ -20,8 +20,8 @@ namespace SpecialCampaignSkillCoolDown
 		private SetData _data = SetData.GetInstance();
 
 		// 쿨타임 돌고 있는 스킬들
-		private static List<LeftSkillCoolDownClass> _leftSkillCoolDown = new List<LeftSkillCoolDownClass>();
-		private object _leftSkillCoolDownLock = new object();
+		private static List<LeftSkillCoolDownClass> _leftSkillCoolDownOther = new List<LeftSkillCoolDownClass>();
+		private object _leftSkillCoolDownLockOther = new object();
 
 		private bool _gameModeState = false;
 
@@ -67,10 +67,10 @@ namespace SpecialCampaignSkillCoolDown
 			{
 				Invoke((MethodInvoker)delegate
 				{
-					lock (_leftSkillCoolDownLock)
+					lock (_leftSkillCoolDownLockOther)
 					{
-						for (int i = 0; i < _leftSkillCoolDown.Count; i++)
-							_leftSkillCoolDown[i].coolDown += 20000;
+						for (int i = 0; i < _leftSkillCoolDownOther.Count; i++)
+							_leftSkillCoolDownOther[i].coolDown += 20000;
 					}
 				});
 			}
@@ -78,7 +78,7 @@ namespace SpecialCampaignSkillCoolDown
 
 		private void ControllLeftSkillCoolDown(LeftSkillCoolDownClass skill)
 		{
-			lock (_leftSkillCoolDownLock)
+			lock (_leftSkillCoolDownLockOther)
 			{
 				if (_tcp.GetConnState() == false)
 				{
@@ -92,9 +92,9 @@ namespace SpecialCampaignSkillCoolDown
 				// 화면갱신
 				if (skill == null)
 				{
-					for (int i = 0; i < _leftSkillCoolDown.Count; i++)
+					for (int i = 0; i < _leftSkillCoolDownOther.Count; i++)
 					{
-						_leftSkillCoolDown[i].GetLeftCoolDown(ref player, ref name, ref time, ref runAble);
+						_leftSkillCoolDownOther[i].GetLeftCoolDown(ref player, ref name, ref time, ref runAble);
 
 						if (runAble)
 						{
@@ -104,7 +104,7 @@ namespace SpecialCampaignSkillCoolDown
 
 						if (time < 0)
 						{
-							_leftSkillCoolDown.Remove(_leftSkillCoolDown[i]);
+							_leftSkillCoolDownOther.Remove(_leftSkillCoolDownOther[i]);
 							LBOthersCoolDown.Items.RemoveAt(i);
 							continue;
 						}
@@ -116,11 +116,11 @@ namespace SpecialCampaignSkillCoolDown
 
 				// 스킬 쿨 추가 중복 방지
 				if (skill.player == _data.playerName) { return; }
-				for (int i = 0; i < _leftSkillCoolDown.Count; i++)
+				for (int i = 0; i < _leftSkillCoolDownOther.Count; i++)
 				{
-					if (skill.name == _leftSkillCoolDown[i].name && skill.player == _leftSkillCoolDown[i].player) { return; }
+					if (skill.name == _leftSkillCoolDownOther[i].name && skill.player == _leftSkillCoolDownOther[i].player) { return; }
 				}
-				_leftSkillCoolDown.Add(skill);
+				_leftSkillCoolDownOther.Add(skill);
 				skill.GetLeftCoolDown(ref player, ref name, ref time, ref runAble);
 				LBOthersCoolDown.Items.Add((player.Length > 7 ? player.Substring(0, 7) : player) + " : " + name + "(RUN) : " + string.Format("{0:0.0}", (float)time / 1000));
 			}
@@ -133,14 +133,14 @@ namespace SpecialCampaignSkillCoolDown
 				if (e._eventType == "NEW") ControllLeftSkillCoolDown(new LeftSkillCoolDownClass(e._player, e._unique, e._name, e._coolDown, e._duration, true));
 				else if (e._eventType == "DEL")
 				{
-					lock (_leftSkillCoolDownLock)
+					lock (_leftSkillCoolDownLockOther)
 					{
-						for (int i = 0; i < _leftSkillCoolDown.Count; i++)
+						for (int i = 0; i < _leftSkillCoolDownOther.Count; i++)
 						{
-							if (_leftSkillCoolDown[i].player == e._player && _leftSkillCoolDown[i].name == e._name)
+							if (_leftSkillCoolDownOther[i].player == e._player && _leftSkillCoolDownOther[i].name == e._name)
 							{
 								LBOthersCoolDown.Items.RemoveAt(i);
-								_leftSkillCoolDown.RemoveAt(i);
+								_leftSkillCoolDownOther.RemoveAt(i);
 								return;
 							}
 						}
