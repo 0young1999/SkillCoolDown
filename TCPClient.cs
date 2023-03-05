@@ -54,6 +54,8 @@ namespace SpecialCampaignSkillCoolDown
 				_readThread = new Thread(ReadServerMessage);
 				_readThread.IsBackground = true;
 				_readThread.Start();
+
+				streamWriter.WriteLine((char)02 + ",NEW," + _data.playerName + "님,입장,10000,10000,false," + (char)03);
 			}
 			catch
 			{

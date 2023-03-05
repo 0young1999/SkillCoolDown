@@ -55,7 +55,7 @@
 			this.LBOthersCoolDown.ItemHeight = 40;
 			this.LBOthersCoolDown.Location = new System.Drawing.Point(12, 52);
 			this.LBOthersCoolDown.Name = "LBOthersCoolDown";
-			this.LBOthersCoolDown.Size = new System.Drawing.Size(869, 400);
+			this.LBOthersCoolDown.Size = new System.Drawing.Size(869, 600);
 			this.LBOthersCoolDown.TabIndex = 1;
 			this.LBOthersCoolDown.UseWaitCursor = true;
 			// 
@@ -69,7 +69,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.Window;
-			this.ClientSize = new System.Drawing.Size(893, 464);
+			this.ClientSize = new System.Drawing.Size(893, 658);
 			this.Controls.Add(this.LBOthersCoolDown);
 			this.Controls.Add(this.label1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -83,7 +83,6 @@
 			this.TopMost = true;
 			this.TransparencyKey = System.Drawing.Color.Transparent;
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OthersPlayerSkill_FormClosing);
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OthersPlayerSkill_FormClosed);
 			this.Load += new System.EventHandler(this.OthersPlayerSkill_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();

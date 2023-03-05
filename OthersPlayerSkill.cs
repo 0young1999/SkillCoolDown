@@ -25,11 +25,6 @@ namespace SpecialCampaignSkillCoolDown
 
 		private bool _gameModeState = false;
 
-		private void OthersPlayerSkill_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			_form1.Invoke((MethodInvoker)delegate { _form1.BTServerConn.Enabled = true; });
-		}
-
 		private void OthersPlayerSkill_Load(object sender, EventArgs e)
 		{
 			keyboardHooker.UpdataKeyboardHookEvent += new EventHandler<keyboardHooker.KeyboardHookEventArg>(UpdateKey);
