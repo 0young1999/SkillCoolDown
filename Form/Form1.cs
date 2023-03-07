@@ -279,7 +279,7 @@ namespace SpecialCampaignSkillCoolDown
 							"게임 서버 랙으로 인한 정지",
 							e._coolDown,
 							e._duration,
-							true,
+							false,
 							_gameServerState));
 					_gameServerState = false;
 					lock (_leftSkillCoolDownLock)
@@ -301,7 +301,7 @@ namespace SpecialCampaignSkillCoolDown
 							e._name,
 							e._coolDown,
 							e._duration,
-							true,
+							false,
 							_gameServerState));
 					_gameServerState = true;
 					lock (_leftSkillCoolDownLock)
