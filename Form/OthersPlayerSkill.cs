@@ -146,8 +146,16 @@ namespace SpecialCampaignSkillCoolDown
 				}
 				else if (e._eventType == "STOP")
 				{
+					ControllLeftSkillCoolDown(
+						new LeftSkillCoolDownClass(
+							"서버",
+							e._unique,
+							"게임 서버 랙으로 인한 정지",
+							e._coolDown,
+							e._duration,
+							true,
+							_gameServerState));
 					_gameServerState = false;
-					new LeftSkillCoolDownClass("서버", e._unique, "게임 서버 랙으로 인한 정지", e._coolDown, e._duration, true, _gameServerState);
 					lock (_leftSkillCoolDownLockOther)
 					{
 						foreach (LeftSkillCoolDownClass skill in _leftSkillCoolDownOther)
@@ -160,6 +168,15 @@ namespace SpecialCampaignSkillCoolDown
 				}
 				else if (e._eventType == "START")
 				{
+					ControllLeftSkillCoolDown(
+						new LeftSkillCoolDownClass(
+							e._player,
+							e._unique,
+							e._name,
+							e._coolDown,
+							e._duration,
+							true,
+							_gameServerState));
 					_gameServerState = true;
 					lock (_leftSkillCoolDownLockOther)
 					{
