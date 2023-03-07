@@ -114,9 +114,12 @@ namespace SpecialCampaignSkillCoolDown
 
 				// 스킬 쿨 추가 중복 방지
 				if (skill.player == _data.playerName) { return; }
-				for (int i = 0; i < _leftSkillCoolDownOther.Count; i++)
+				if (skill.player != "서버")
 				{
-					if (skill.name == _leftSkillCoolDownOther[i].name && skill.player == _leftSkillCoolDownOther[i].player) { return; }
+					for (int i = 0; i < _leftSkillCoolDownOther.Count; i++)
+					{
+						if (skill.name == _leftSkillCoolDownOther[i].name && skill.player == _leftSkillCoolDownOther[i].player) { return; }
+					}
 				}
 				_leftSkillCoolDownOther.Add(skill);
 				skill.GetLeftCoolDown(ref player, ref name, ref time, ref runAble);
@@ -148,9 +151,9 @@ namespace SpecialCampaignSkillCoolDown
 				{
 					ControllLeftSkillCoolDown(
 						new LeftSkillCoolDownClass(
-							"서버",
+							e._player,
 							e._unique,
-							"게임 서버 랙으로 인한 정지",
+							e._name,
 							e._coolDown,
 							e._duration,
 							false,

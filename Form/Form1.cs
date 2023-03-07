@@ -116,9 +116,12 @@ namespace SpecialCampaignSkillCoolDown
 				}
 
 				// 스킬 쿨 추가 중복 방지
-				for (int i = 0; i < _leftSkillCoolDown.Count; i++)
+				if (skill.player != "서버")
 				{
-					if (skill.name == _leftSkillCoolDown[i].name) { return; }
+					for (int i = 0; i < _leftSkillCoolDown.Count; i++)
+					{
+						if (skill.name == _leftSkillCoolDown[i].name) { return; }
+					}
 				}
 				_leftSkillCoolDown.Add(skill);
 				skill.GetLeftCoolDown(ref player, ref name, ref time, ref runAble);
