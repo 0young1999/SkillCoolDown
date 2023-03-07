@@ -72,7 +72,6 @@
       <DependentUpon>settForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Protocol\TCPClient.cs" />
-    <Compile Include="TEST\SteamAPITest.cs" />
     <EmbeddedResource Include="Form\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

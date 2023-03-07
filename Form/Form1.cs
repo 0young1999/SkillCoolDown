@@ -29,6 +29,7 @@ namespace SpecialCampaignSkillCoolDown
 		// server
 		private OthersPlayerSkill _playerSkill;
 		private TCPClient _tcPClient = TCPClient.GetInstance();
+		private bool _gameServerState = true;
 
 		private Form1()
 		{
@@ -58,6 +59,7 @@ namespace SpecialCampaignSkillCoolDown
 			_hooker.SetHook();
 
 			keyboardHooker.UpdataKeyboardHookEvent += new EventHandler<keyboardHooker.KeyboardHookEventArg>(UpdateKey);
+			TCPClient._ReqeustSkillNewEvent += new EventHandler<TCPClient.ReqeustSkillNewEventArg>(UpdateSkill);
 		}
 
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -172,7 +174,7 @@ namespace SpecialCampaignSkillCoolDown
 						"질풍가도",
 						_data.galeRoadCoolDown * 1000,
 						_data.galeRoadCoolDown * 1000,
-						false));
+						false, _gameServerState));
 				});
 				return;
 			}
@@ -248,7 +250,8 @@ namespace SpecialCampaignSkillCoolDown
 										_data.skillName[i],
 										_data.skillCoolDown[i] * 1000,
 										_data.skillDuration[i] * 1000,
-										_data.tcpUsing[i]));
+										_data.tcpUsing[i],
+										_gameServerState));
 							}
 						}
 					});
@@ -262,6 +265,38 @@ namespace SpecialCampaignSkillCoolDown
 			_playerSkill._form1 = this;
 			_playerSkill.Show();
 		}
+
+		private void UpdateSkill(object sender, TCPClient.ReqeustSkillNewEventArg e)
+		{
+			Invoke((MethodInvoker)delegate
+			{
+				if (e._eventType == "STOP")
+				{
+					_gameServerState = false;
+					new LeftSkillCoolDownClass("서버", e._unique, "게임 서버 랙으로 인한 정지", e._coolDown, e._duration, true, _gameServerState);
+					lock (_leftSkillCoolDownLock)
+					{
+						foreach (LeftSkillCoolDownClass skill in _leftSkillCoolDown)
+						{
+							skill.stopwatch.Stop();
+							if (skill.stopwatch.ElapsedMilliseconds < skill.duration) skill.duration += 1000;
+							else skill.coolDown += 1000;
+						}
+					}
+				}
+				else if (e._eventType == "START")
+				{
+					_gameServerState = true;
+					lock (_leftSkillCoolDownLock)
+					{
+						foreach (LeftSkillCoolDownClass skill in _leftSkillCoolDown)
+						{
+							skill.stopwatch.Start();
+						}
+					}
+				}
+			});
+		}
 	}
 
 	class LeftSkillCoolDownClass
@@ -272,10 +307,10 @@ namespace SpecialCampaignSkillCoolDown
 		public long coolDown = 0;   // ms, 1000ms == 1s
 		public long duration = 0;   // ms, 1000ms == 1s
 		public bool tcpUsing = false;
-		private Stopwatch Stopwatch = new Stopwatch();
+		public Stopwatch stopwatch = new Stopwatch();
 
 		private LeftSkillCoolDownClass() { }
-		public LeftSkillCoolDownClass(string player, bool unique, string name, long coolDown, long duration, bool tcpUsing)
+		public LeftSkillCoolDownClass(string player, bool unique, string name, long coolDown, long duration, bool tcpUsing, bool state)
 		{
 			this.player = player;
 			this.unique = unique;
@@ -284,11 +319,11 @@ namespace SpecialCampaignSkillCoolDown
 			this.duration = duration;
 			this.tcpUsing = tcpUsing;
 
-			Stopwatch.Start();
+			if (state) stopwatch.Start();
 		}
 		~LeftSkillCoolDownClass()
 		{
-			Stopwatch.Stop();
+			stopwatch.Stop();
 		}
 
 		private object locker = new object();
@@ -299,19 +334,19 @@ namespace SpecialCampaignSkillCoolDown
 			{
 				player = this.player;
 				name = this.name;
-				if (duration > Stopwatch.ElapsedMilliseconds)
+				if (duration > stopwatch.ElapsedMilliseconds)
 				{
-					time = duration - Stopwatch.ElapsedMilliseconds;
+					time = duration - stopwatch.ElapsedMilliseconds;
 					runAble = true;
 					return;
 				}
 				if (unique)
 				{
-					time = coolDown + duration - Stopwatch.ElapsedMilliseconds;
+					time = coolDown + duration - stopwatch.ElapsedMilliseconds;
 				}
 				else
 				{
-					time = coolDown - Stopwatch.ElapsedMilliseconds;
+					time = coolDown - stopwatch.ElapsedMilliseconds;
 				}
 				runAble = false;
 			}

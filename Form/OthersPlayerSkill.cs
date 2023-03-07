@@ -25,6 +25,9 @@ namespace SpecialCampaignSkillCoolDown
 
 		private bool _gameModeState = false;
 
+		// 게임 서버 상태
+		private bool _gameServerState = true;
+
 		private void OthersPlayerSkill_Load(object sender, EventArgs e)
 		{
 			keyboardHooker.UpdataKeyboardHookEvent += new EventHandler<keyboardHooker.KeyboardHookEventArg>(UpdateKey);
@@ -125,7 +128,7 @@ namespace SpecialCampaignSkillCoolDown
 		{
 			Invoke((MethodInvoker)delegate
 			{
-				if (e._eventType == "NEW") ControllLeftSkillCoolDown(new LeftSkillCoolDownClass(e._player, e._unique, e._name, e._coolDown, e._duration, true));
+				if (e._eventType == "NEW") ControllLeftSkillCoolDown(new LeftSkillCoolDownClass(e._player, e._unique, e._name, e._coolDown, e._duration, true, _gameServerState));
 				else if (e._eventType == "DEL")
 				{
 					lock (_leftSkillCoolDownLockOther)
@@ -141,9 +144,34 @@ namespace SpecialCampaignSkillCoolDown
 						}
 					}
 				}
+				else if (e._eventType == "STOP")
+				{
+					_gameServerState = false;
+					new LeftSkillCoolDownClass("서버", e._unique, "게임 서버 랙으로 인한 정지", e._coolDown, e._duration, true, _gameServerState);
+					lock (_leftSkillCoolDownLockOther)
+					{
+						foreach (LeftSkillCoolDownClass skill in _leftSkillCoolDownOther)
+						{
+							skill.stopwatch.Stop();
+							if (skill.stopwatch.ElapsedMilliseconds < skill.duration) skill.duration += 1000;
+							else skill.coolDown += 1000;
+						}
+					}
+				}
+				else if (e._eventType == "START")
+				{
+					_gameServerState = true;
+					lock (_leftSkillCoolDownLockOther)
+					{
+						foreach (LeftSkillCoolDownClass skill in _leftSkillCoolDownOther)
+						{
+							skill.stopwatch.Start();
+						}
+					}
+				}
 				else
 				{
-					ControllLeftSkillCoolDown(new LeftSkillCoolDownClass("서버 메세지", false, "알수없는 수신", 5000, 5000, true));
+					ControllLeftSkillCoolDown(new LeftSkillCoolDownClass("서버 메세지", false, "알수없는 수신", 5000, 5000, true, _gameServerState));
 				}
 			});
 		}
