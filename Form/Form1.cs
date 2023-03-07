@@ -59,7 +59,6 @@ namespace SpecialCampaignSkillCoolDown
 			_hooker.SetHook();
 
 			keyboardHooker.UpdataKeyboardHookEvent += new EventHandler<keyboardHooker.KeyboardHookEventArg>(UpdateKey);
-			TCPClient._ReqeustSkillNewEvent += new EventHandler<TCPClient.ReqeustSkillNewEventArg>(UpdateSkill);
 		}
 
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -227,17 +226,17 @@ namespace SpecialCampaignSkillCoolDown
 					});
 				}
 				// 맵 로딩 보정
-				else if (e._keyCode == _data.intCorrection)
-				{
-					Invoke((MethodInvoker)delegate
-					{
-						lock (_leftSkillCoolDownLock)
-						{
-							for (int i = 0; i < _leftSkillCoolDown.Count; i++)
-								_leftSkillCoolDown[i].coolDown += 20000;
-						}
-					});
-				}
+				//else if (e._keyCode == _data.intCorrection)
+				//{
+				//	Invoke((MethodInvoker)delegate
+				//	{
+				//		lock (_leftSkillCoolDownLock)
+				//		{
+				//			for (int i = 0; i < _leftSkillCoolDown.Count; i++)
+				//				_leftSkillCoolDown[i].coolDown += 20000;
+				//		}
+				//	});
+				//}
 				else if (e._keyCode != 0)
 				{
 					Invoke((MethodInvoker)delegate
@@ -267,55 +266,6 @@ namespace SpecialCampaignSkillCoolDown
 			_playerSkill = new OthersPlayerSkill();
 			_playerSkill._form1 = this;
 			_playerSkill.Show();
-		}
-
-		private void UpdateSkill(object sender, TCPClient.ReqeustSkillNewEventArg e)
-		{
-			Invoke((MethodInvoker)delegate
-			{
-				if (e._eventType == "STOP")
-				{
-					ControllLeftSkillCoolDown(
-						new LeftSkillCoolDownClass(
-							"서버",
-							e._unique,
-							"게임 서버 랙으로 인한 정지",
-							e._coolDown,
-							e._duration,
-							false,
-							_gameServerState));
-					_gameServerState = false;
-					lock (_leftSkillCoolDownLock)
-					{
-						foreach (LeftSkillCoolDownClass skill in _leftSkillCoolDown)
-						{
-							skill.stopwatch.Stop();
-							if (skill.stopwatch.ElapsedMilliseconds < skill.duration) skill.duration += 1000;
-							else skill.coolDown += 1000;
-						}
-					}
-				}
-				else if (e._eventType == "START")
-				{
-					ControllLeftSkillCoolDown(
-						new LeftSkillCoolDownClass(
-							e._player,
-							e._unique,
-							e._name,
-							e._coolDown,
-							e._duration,
-							false,
-							_gameServerState));
-					_gameServerState = true;
-					lock (_leftSkillCoolDownLock)
-					{
-						foreach (LeftSkillCoolDownClass skill in _leftSkillCoolDown)
-						{
-							skill.stopwatch.Start();
-						}
-					}
-				}
-			});
 		}
 	}
 

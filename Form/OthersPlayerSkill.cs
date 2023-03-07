@@ -61,17 +61,17 @@ namespace SpecialCampaignSkillCoolDown
 				});
 			}
 			// 맵 로딩 보정
-			else if (e._lParam == (IntPtr)0x101 && e._keyCode == _data.intCorrection)
-			{
-				Invoke((MethodInvoker)delegate
-				{
-					lock (_leftSkillCoolDownLockOther)
-					{
-						for (int i = 0; i < _leftSkillCoolDownOther.Count; i++)
-							_leftSkillCoolDownOther[i].coolDown += 20000;
-					}
-				});
-			}
+			//else if (e._lParam == (IntPtr)0x101 && e._keyCode == _data.intCorrection)
+			//{
+			//	Invoke((MethodInvoker)delegate
+			//	{
+			//		lock (_leftSkillCoolDownLockOther)
+			//		{
+			//			for (int i = 0; i < _leftSkillCoolDownOther.Count; i++)
+			//				_leftSkillCoolDownOther[i].coolDown += 20000;
+			//		}
+			//	});
+			//}
 		}
 
 		private void ControllLeftSkillCoolDown(LeftSkillCoolDownClass skill)
@@ -191,7 +191,7 @@ namespace SpecialCampaignSkillCoolDown
 				}
 				else
 				{
-					ControllLeftSkillCoolDown(new LeftSkillCoolDownClass("서버 메세지", false, "알수없는 수신", 5000, 5000, true, _gameServerState));
+					ControllLeftSkillCoolDown(new LeftSkillCoolDownClass("서버", false, "알수없는 수신", 5000, 5000, true, _gameServerState));
 				}
 			});
 		}
