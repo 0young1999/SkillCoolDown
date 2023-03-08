@@ -59,6 +59,7 @@ namespace SpecialCampaignSkillCoolDown
 			_hooker.SetHook();
 
 			keyboardHooker.UpdataKeyboardHookEvent += new EventHandler<keyboardHooker.KeyboardHookEventArg>(UpdateKey);
+			TCPClient._ReqeustSkillNewEvent += new EventHandler<TCPClient.ReqeustSkillNewEventArg>(UpdateSkill);
 		}
 
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -259,6 +260,55 @@ namespace SpecialCampaignSkillCoolDown
 					});
 				}
 			}
+		}
+
+		private void UpdateSkill(object sender, TCPClient.ReqeustSkillNewEventArg e)
+		{
+			Invoke((MethodInvoker)delegate
+			{
+				if (e._eventType == "STOP")
+				{
+					ControllLeftSkillCoolDown(
+						new LeftSkillCoolDownClass(
+							e._player,
+							e._unique,
+							e._name,
+							e._coolDown,
+							e._duration,
+							false,
+							_gameServerState));
+					_gameServerState = false;
+					lock (_leftSkillCoolDownLock)
+					{
+						foreach (LeftSkillCoolDownClass skill in _leftSkillCoolDown)
+						{
+							skill.stopwatch.Stop();
+							if (skill.stopwatch.ElapsedMilliseconds < skill.duration) skill.duration += 1000;
+							else skill.coolDown += 1000;
+						}
+					}
+				}
+				else if (e._eventType == "START")
+				{
+					ControllLeftSkillCoolDown(
+						new LeftSkillCoolDownClass(
+							e._player,
+							e._unique,
+							e._name,
+							e._coolDown,
+							e._duration,
+							false,
+							_gameServerState));
+					_gameServerState = true;
+					lock (_leftSkillCoolDownLock)
+					{
+						foreach (LeftSkillCoolDownClass skill in _leftSkillCoolDown)
+						{
+							skill.stopwatch.Start();
+						}
+					}
+				}
+			});
 		}
 
 		private void BTServerConn_Click(object sender, EventArgs e)

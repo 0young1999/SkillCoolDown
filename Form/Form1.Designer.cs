@@ -119,7 +119,7 @@
 			this.ShowIcon = false;
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "SkillCoolDown 0.0.12";
+			this.Text = "SkillCoolDown 0.0.12V1";
 			this.TopMost = true;
 			this.TransparencyKey = System.Drawing.Color.Transparent;
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
