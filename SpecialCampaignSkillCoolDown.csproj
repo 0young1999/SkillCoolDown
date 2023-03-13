@@ -46,33 +46,63 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form\Form1.cs">
+    <Compile Include="Data\ProfileData.cs" />
+    <Compile Include="Data\ProfileList.cs" />
+    <Compile Include="Data\ProfileSkillData.cs" />
+    <Compile Include="FormFolder\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\Form1.Designer.cs">
+    <Compile Include="FormFolder\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Protocol\keyboardHooker.cs" />
-    <Compile Include="Form\OthersPlayerSkill.cs">
+    <Compile Include="FormFolder\FormDialogResultText.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\OthersPlayerSkill.Designer.cs">
+    <Compile Include="FormFolder\FormDialogResultText.Designer.cs">
+      <DependentUpon>FormDialogResultText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormFolder\FormSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFolder\FormSetting.Designer.cs">
+      <DependentUpon>FormSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormFolder\LoadProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFolder\LoadProfile.Designer.cs">
+      <DependentUpon>LoadProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Protocol\keyboardHooker.cs" />
+    <Compile Include="FormFolder\OthersPlayerSkill.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFolder\OthersPlayerSkill.Designer.cs">
       <DependentUpon>OthersPlayerSkill.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\SetData.cs" />
-    <Compile Include="Form\settForm.cs">
+    <Compile Include="FormFolder\settForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\settForm.Designer.cs">
+    <Compile Include="FormFolder\settForm.Designer.cs">
       <DependentUpon>settForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Protocol\TCPClient.cs" />
-    <EmbeddedResource Include="Form\Form1.resx">
+    <EmbeddedResource Include="FormFolder\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\OthersPlayerSkill.resx">
+    <EmbeddedResource Include="FormFolder\FormDialogResultText.resx">
+      <DependentUpon>FormDialogResultText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormFolder\FormSetting.resx">
+      <DependentUpon>FormSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormFolder\LoadProfile.resx">
+      <DependentUpon>LoadProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormFolder\OthersPlayerSkill.resx">
       <DependentUpon>OthersPlayerSkill.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -84,7 +114,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Form\settForm.resx">
+    <EmbeddedResource Include="FormFolder\settForm.resx">
       <DependentUpon>settForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

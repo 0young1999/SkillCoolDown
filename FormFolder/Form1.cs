@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SpecialCampaignSkillCoolDown.Data;
+using SpecialCampaignSkillCoolDown.FormFolder;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -25,6 +27,8 @@ namespace SpecialCampaignSkillCoolDown
 
 		// 설정
 		private SetData _data = SetData.GetInstance();
+		private ProfileList _profileList = ProfileList.GetInstance();
+		private ProfileData _profileData;
 
 		// server
 		private OthersPlayerSkill _playerSkill;
@@ -33,6 +37,7 @@ namespace SpecialCampaignSkillCoolDown
 
 		private Form1()
 		{
+			new LoadProfile().ShowDialog();
 			InitializeComponent();
 		}
 		private static Form1 _instance;
@@ -44,9 +49,20 @@ namespace SpecialCampaignSkillCoolDown
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
+			Text += _data.verstion;
+
 			if (!_data.ReadSettingData())
 			{
 				_data.SaveSettingData();
+			}
+
+			foreach (ProfileData data in  _profileList._profileList)
+			{
+				if (data._profileName == _profileList._profileSelect)
+				{
+					_profileData = data;
+					break;
+				}
 			}
 
 			LBHookState.ForeColor = Color.Blue;
@@ -71,7 +87,17 @@ namespace SpecialCampaignSkillCoolDown
 		{
 			_hooker.UnHook();
 
-			(new settForm()).ShowDialog();
+			new FormSetting().ShowDialog();
+			//new settForm().ShowDialog();
+
+			foreach (ProfileData data in _profileList._profileList)
+			{
+				if (data._profileName == _profileList._profileSelect)
+				{
+					_profileData = data;
+					break;
+				}
+			}
 
 			List<int> list = new List<int>();
 			list.Add(_data.intDelete);
@@ -148,6 +174,8 @@ namespace SpecialCampaignSkillCoolDown
 
 		private void UpdateKey(object sender, keyboardHooker.KeyboardHookEventArg e)
 		{
+			if (_profileList._profileSelect.Trim() == "") return;
+
 			// ctrl && space
 			if (e._keyCode == 162) Invoke((MethodInvoker)delegate { _ctrlState = e._lParam == (IntPtr)0x100 ? true : false; });
 			if (e._keyCode == 32) Invoke((MethodInvoker)delegate { _spaceState = e._lParam == (IntPtr)0x100 ? true : false; });
@@ -162,11 +190,9 @@ namespace SpecialCampaignSkillCoolDown
 			{
 				return;
 			}
-
-
-
+			
 			// 질풍가도
-			if (_spaceState && _ctrlState && _data.galeRoadEnable)
+			if (_spaceState && _ctrlState && _profileData._profileName.IndexOf("검호") > -1)
 			{
 				Invoke((MethodInvoker)delegate
 				{
@@ -175,8 +201,8 @@ namespace SpecialCampaignSkillCoolDown
 						"",
 						false,
 						"질풍가도",
-						_data.galeRoadCoolDown * 1000,
-						_data.galeRoadCoolDown * 1000,
+						_profileData._CoolDown1 * 1000,
+						_profileData._CoolDown1 * 1000,
 						false, _gameServerState));
 				});
 				return;
@@ -226,34 +252,22 @@ namespace SpecialCampaignSkillCoolDown
 						}
 					});
 				}
-				// 맵 로딩 보정
-				//else if (e._keyCode == _data.intCorrection)
-				//{
-				//	Invoke((MethodInvoker)delegate
-				//	{
-				//		lock (_leftSkillCoolDownLock)
-				//		{
-				//			for (int i = 0; i < _leftSkillCoolDown.Count; i++)
-				//				_leftSkillCoolDown[i].coolDown += 20000;
-				//		}
-				//	});
-				//}
 				else if (e._keyCode != 0)
 				{
 					Invoke((MethodInvoker)delegate
 					{
-						for (int i = 0; i < 10; i++)
+						foreach (ProfileSkillData data in _profileData._list)
 						{
-							if (_data.skillEnable[i] && _data.intSkillBind[i] == e._keyCode)
+							if (data._keyInt == e._keyCode)
 							{
 								ControllLeftSkillCoolDown(
 									new LeftSkillCoolDownClass(
 										"",
-										_data.skillUnique[i],
-										_data.skillName[i],
-										_data.skillCoolDown[i] * 1000,
-										_data.skillDuration[i] * 1000,
-										_data.tcpUsing[i],
+										data._skillType,
+										data._name,
+										data._coolTime * 1000,
+										data._duration * 1000,
+										data._tcpEnable,
 										_gameServerState));
 							}
 						}

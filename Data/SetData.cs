@@ -19,7 +19,7 @@ namespace SpecialCampaignSkillCoolDown
 				tcpUsing[i] = false;
 			}
 		}
-		public static SetData _instance;
+		private static SetData _instance;
 		public static SetData GetInstance()
 		{
 			if (_instance == null)
@@ -50,6 +50,8 @@ namespace SpecialCampaignSkillCoolDown
 		public string ServerIp = "127.0.0.1";       // server ip
 		public int ServerPort = 8000;               // server port
 		public string playerName = "임시";            // server player name
+
+		public string verstion = "0.1.1V1";
 
 
 		public bool SaveSettingData()
@@ -242,7 +244,7 @@ namespace SpecialCampaignSkillCoolDown
 				ServerPort = int.Parse(xmlServer.SelectSingleNode("PORT").InnerText);
 				playerName = xmlServer.SelectSingleNode("PlayerName").InnerText;
 			}
-			catch (Exception) { return false; }
+			catch { return false; }
 			return true;
 		}
 	}
