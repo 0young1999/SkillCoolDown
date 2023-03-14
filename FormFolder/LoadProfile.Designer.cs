@@ -31,6 +31,7 @@
 			this.listBox1 = new System.Windows.Forms.ListBox();
 			this.BT_OK = new System.Windows.Forms.Button();
 			this.BT_EXIT = new System.Windows.Forms.Button();
+			this.BTSetting = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// listBox1
@@ -62,12 +63,23 @@
 			this.BT_EXIT.UseVisualStyleBackColor = true;
 			this.BT_EXIT.Click += new System.EventHandler(this.BT_EXIT_Click);
 			// 
+			// BTSetting
+			// 
+			this.BTSetting.Location = new System.Drawing.Point(93, 7);
+			this.BTSetting.Name = "BTSetting";
+			this.BTSetting.Size = new System.Drawing.Size(75, 23);
+			this.BTSetting.TabIndex = 3;
+			this.BTSetting.Text = "설정";
+			this.BTSetting.UseVisualStyleBackColor = true;
+			this.BTSetting.Click += new System.EventHandler(this.BTSetting_Click);
+			// 
 			// LoadProfile
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.ClientSize = new System.Drawing.Size(796, 446);
 			this.ControlBox = false;
+			this.Controls.Add(this.BTSetting);
 			this.Controls.Add(this.BT_EXIT);
 			this.Controls.Add(this.BT_OK);
 			this.Controls.Add(this.listBox1);
@@ -90,5 +102,6 @@
 		private System.Windows.Forms.ListBox listBox1;
 		private System.Windows.Forms.Button BT_OK;
 		private System.Windows.Forms.Button BT_EXIT;
+		private System.Windows.Forms.Button BTSetting;
 	}
 }

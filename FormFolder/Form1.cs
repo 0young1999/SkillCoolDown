@@ -66,6 +66,7 @@ namespace SpecialCampaignSkillCoolDown
 			}
 
 			LBHookState.ForeColor = Color.Blue;
+			LBHookState.Text = _profileList._profileSelect;
 
 			List<int> list = new List<int>();
 			list.Add(_data.intDelete);
@@ -98,6 +99,8 @@ namespace SpecialCampaignSkillCoolDown
 					break;
 				}
 			}
+
+			LBHookState.Text = _profileList._profileSelect;
 
 			List<int> list = new List<int>();
 			list.Add(_data.intDelete);

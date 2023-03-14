@@ -18,6 +18,7 @@ namespace SpecialCampaignSkillCoolDown
 				skillUnique[i] = false;
 				tcpUsing[i] = false;
 			}
+			ReadSettingData();
 		}
 		private static SetData _instance;
 		public static SetData GetInstance()
@@ -51,7 +52,7 @@ namespace SpecialCampaignSkillCoolDown
 		public int ServerPort = 8000;               // server port
 		public string playerName = "임시";            // server player name
 
-		public string verstion = "0.1.1V1";
+		public string verstion = "0.1.1V3";
 
 
 		public bool SaveSettingData()
